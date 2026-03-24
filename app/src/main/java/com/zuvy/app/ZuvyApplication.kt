@@ -4,8 +4,6 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -18,10 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
-class ZuvyApplication : Application(), Configuration.Provider {
-
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+class ZuvyApplication : Application() {
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
@@ -97,11 +92,6 @@ class ZuvyApplication : Application(), Configuration.Provider {
         val themeMode = preferenceManager.getThemeMode()
         ThemeHelper.applyTheme(themeMode)
     }
-
-    override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
 
     companion object {
         const val CHANNEL_MUSIC_PLAYBACK = "music_playback"
