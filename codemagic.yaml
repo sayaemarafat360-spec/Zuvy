@@ -1,5 +1,4 @@
 # Zuvy - Codemagic CI/CD Configuration
-# This file configures automated builds for Android using Codemagic cloud
 
 workflows:
   android-app:
@@ -7,8 +6,6 @@ workflows:
     max_build_duration: 30
     environment:
       java: 17
-      groups:
-        - firebase_credentials  # Add Firebase credentials in Codemagic UI
     triggering:
       events:
         - push
@@ -24,77 +21,12 @@ workflows:
       - name: Set up local properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-          
-      - name: Grant execute permission for gradlew
+      - name: Grant execute permission
         script: chmod +x ./gradlew
-        
-      - name: Debug build
-        script: |
-          ./gradlew assembleDebug
-          
-      - name: Run unit tests
-        script: |
-          ./gradlew testDebugUnitTest || true
-          
+      - name: Build debug APK
+        script: ./gradlew assembleDebug
     artifacts:
       - app/build/outputs/apk/debug/*.apk
-      - app/build/outputs/apk/release/*.apk
-      - app/build/outputs/bundle/release/*.aab
-      
-    publishing:
-      email:
-        recipients:
-          - your-email@example.com  # Replace with your email
-        notify:
-          success: true
-          failure: true
-
-  release-build:
-    name: Zuvy Release Build
-    max_build_duration: 45
-    environment:
-      java: 17
-      groups:
-        - keystore_credentials  # Add keystore credentials in Codemagic UI
-        - play_store_credentials  # Add Play Store credentials if needed
-    triggering:
-      events:
-        - tag
-      branch_patterns:
-        - pattern: 'v*'
-          include: true
-          source: true
-    scripts:
-      - name: Set up local properties
-        script: |
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-          
-      - name: Create keystore file
-        script: |
-          echo $KEYSTORE_BASE64 | base64 -d > app/release.keystore
-        env:
-          KEYSTORE_BASE64: $KEYSTORE_BASE64
-          
-      - name: Build release APK
-        script: |
-          ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=app/release.keystore \
-            -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
-            -Pandroid.injected.signing.key.alias=$KEY_ALIAS \
-            -Pandroid.injected.signing.key.password=$KEY_PASSWORD
-            
-      - name: Build release AAB
-        script: |
-          ./gradlew bundleRelease \
-            -Pandroid.injected.signing.store.file=app/release.keystore \
-            -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
-            -Pandroid.injected.signing.key.alias=$KEY_ALIAS \
-            -Pandroid.injected.signing.key.password=$KEY_PASSWORD
-            
-    artifacts:
-      - app/build/outputs/apk/release/*.apk
-      - app/build/outputs/bundle/release/*.aab
-      
     publishing:
       email:
         recipients:
@@ -102,7 +34,3 @@ workflows:
         notify:
           success: true
           failure: true
-      google_play:
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: internal
-        submit_as_draft: true
