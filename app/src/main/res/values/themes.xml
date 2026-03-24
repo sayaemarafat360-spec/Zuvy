@@ -111,31 +111,35 @@
     
     <!-- Text Styles -->
     <style name="TextAppearance.Zuvy.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="fontFamily">@font/poppins_bold</item>
-        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="TextAppearance.Zuvy.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
-        <item name="fontFamily">@font/poppins_bold</item>
-        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="TextAppearance.Zuvy.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
-        <item name="fontFamily">@font/poppins_semibold</item>
-        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="TextAppearance.Zuvy.Title" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/poppins_semibold</item>
-        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="TextAppearance.Zuvy.Body" parent="TextAppearance.MaterialComponents.Body1">
@@ -162,26 +166,29 @@
     <!-- Widget Styles -->
     <style name="Widget.Zuvy.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">12dp</item>
-        <item name="fontFamily">@font/poppins_semibold</item>
-        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
         <item name="backgroundTint">@color/primary</item>
     </style>
     
     <style name="Widget.Zuvy.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="cornerRadius">12dp</item>
-        <item name="fontFamily">@font/poppins_semibold</item>
-        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
         <item name="strokeColor">@color/primary</item>
         <item name="strokeWidth">1dp</item>
     </style>
     
     <style name="Widget.Zuvy.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="cornerRadius">12dp</item>
-        <item name="fontFamily">@font/poppins_semibold</item>
-        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="Widget.Zuvy.Card" parent="Widget.MaterialComponents.CardView">

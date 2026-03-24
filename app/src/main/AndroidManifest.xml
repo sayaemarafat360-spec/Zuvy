@@ -114,29 +114,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Video Player Activity -->
-        <activity
-            android:name=".ui.player.VideoPlayerActivity"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
-            android:exported="false"
-            android:launchMode="singleTask"
-            android:screenOrientation="sensorLandscape"
-            android:supportsPictureInPicture="true"
-            android:theme="@style/Theme.Zuvy.Player" />
-
-        <!-- Music Player Activity -->
-        <activity
-            android:name=".ui.player.MusicPlayerActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Zuvy" />
-
-        <!-- Settings Activity -->
-        <activity
-            android:name=".ui.more.SettingsActivity"
-            android:exported="false"
-            android:label="@string/settings"
-            android:theme="@style/Theme.Zuvy" />
-
         <!-- Music Service -->
         <service
             android:name=".services.MusicService"
