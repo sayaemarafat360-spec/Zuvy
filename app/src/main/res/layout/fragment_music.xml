@@ -34,7 +34,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_bold"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/nav_music"
                     android:textColor="@color/text_primary"
                     android:textSize="28sp" />
@@ -168,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
                     android:textColor="@color/text_primary"

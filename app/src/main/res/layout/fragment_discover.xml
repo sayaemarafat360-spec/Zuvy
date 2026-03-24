@@ -33,7 +33,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_bold"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/nav_discover"
                     android:textColor="@color/text_primary"
                     android:textSize="28sp" />
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins"
                 android:text="@string/trending"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp" />
@@ -192,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins"
                 android:text="@string/online_radio"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp" />
@@ -214,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins"
                 android:text="@string/podcasts"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp" />
@@ -236,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins"
                 android:text="@string/free_music"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp" />

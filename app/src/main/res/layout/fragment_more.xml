@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/poppins"
             android:text="@string/nav_more"
             android:textColor="@color/text_primary"
             android:textSize="28sp"
@@ -75,7 +75,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_semibold"
+                            android:fontFamily="@font/poppins"
                             android:text="@string/go_premium"
                             android:textColor="@color/text_primary"
                             android:textSize="16sp" />
@@ -112,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/appearance"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
@@ -155,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/player_settings"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/storage_settings"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
@@ -241,7 +241,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/privacy_settings"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
@@ -278,7 +278,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/about"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />

@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 tools:text="50%" />
@@ -89,7 +89,7 @@
                 android:id="@+id/seekText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/poppins"
                 android:textColor="@android:color/white"
                 android:textSize="48sp"
                 tools:text="+10s" />
@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 tools:text="70%" />
@@ -174,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
@@ -251,7 +251,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins"
                     android:text="10"
                     android:textColor="@android:color/white"
                     android:textSize="12sp" />
@@ -259,7 +259,7 @@
             </LinearLayout>
 
             <!-- Play/Pause -->
-            < ImageButton
+            <ImageButton
                 android:id="@+id/playPauseButton"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
@@ -288,7 +288,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins"
                     android:text="10"
                     android:textColor="@android:color/white"
                     android:textSize="12sp" />
@@ -317,7 +317,7 @@
                     android:id="@+id/currentPosition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     tools:text="12:34" />
@@ -337,7 +337,7 @@
                     android:id="@+id/duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     tools:text="45:00" />
@@ -358,7 +358,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_rounded_small"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins"
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="6dp"
                     android:text="1.0x"
