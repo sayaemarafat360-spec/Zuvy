@@ -18,6 +18,11 @@ workflows:
           include: true
           source: true
     scripts:
+      - name: Download Gradle Wrapper
+        script: |
+          cd gradle/wrapper
+          curl -L -o gradle-wrapper.jar https://github.com/gradle/gradle/raw/v8.2.0/gradle/wrapper/gradle-wrapper.jar
+          cd ../..
       - name: Set up local properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
