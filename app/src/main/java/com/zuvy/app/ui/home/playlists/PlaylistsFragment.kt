@@ -83,8 +83,10 @@ class PlaylistsFragment : Fragment() {
     }
 
     private fun navigateToPlaylistDetail(playlist: Playlist) {
-        val action = PlaylistsFragmentDirections.actionHomeToPlaylistDetail(playlist.id)
-        findNavController().navigate(action)
+        val bundle = Bundle().apply {
+            putString("playlistId", playlist.id)
+        }
+        findNavController().navigate(R.id.action_home_to_playlistDetail, bundle)
     }
 
     override fun onDestroyView() {

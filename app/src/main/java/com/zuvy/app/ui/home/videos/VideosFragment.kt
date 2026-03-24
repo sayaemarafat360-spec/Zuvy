@@ -1,13 +1,14 @@
 package com.zuvy.app.ui.home.videos
 
-import android.content.ContentUris
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.zuvy.app.utils.formatDuration
 import com.zuvy.app.utils.formatFileSize
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class VideosFragment : Fragment() {
@@ -83,33 +85,43 @@ class VideosFragment : Fragment() {
     }
 
     private fun observeData() {
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                binding.shimmerLayout.startShimmer()
-                binding.shimmerLayout.visibility = View.VISIBLE
-                binding.videosRecyclerView.visibility = View.GONE
-            } else {
-                binding.shimmerLayout.stopShimmer()
-                binding.shimmerLayout.visibility = View.GONE
-                binding.videosRecyclerView.visibility = View.VISIBLE
-            }
-        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.isLoading.collect { isLoading ->
+                        if (isLoading) {
+                            binding.shimmerLayout.startShimmer()
+                            binding.shimmerLayout.visibility = View.VISIBLE
+                            binding.videosRecyclerView.visibility = View.GONE
+                        } else {
+                            binding.shimmerLayout.stopShimmer()
+                            binding.shimmerLayout.visibility = View.GONE
+                            binding.videosRecyclerView.visibility = View.VISIBLE
+                        }
+                    }
+                }
 
-        viewModel.videos.observe(viewLifecycleOwner) { videos ->
-            if (videos.isEmpty()) {
-                binding.emptyState.visibility = View.VISIBLE
-                binding.videosRecyclerView.visibility = View.GONE
-            } else {
-                binding.emptyState.visibility = View.GONE
-                binding.videosRecyclerView.visibility = View.VISIBLE
-                videosAdapter.submitList(videos)
+                launch {
+                    viewModel.videos.collect { videos ->
+                        if (videos.isEmpty()) {
+                            binding.emptyState.visibility = View.VISIBLE
+                            binding.videosRecyclerView.visibility = View.GONE
+                        } else {
+                            binding.emptyState.visibility = View.GONE
+                            binding.videosRecyclerView.visibility = View.VISIBLE
+                            videosAdapter.submitList(videos)
+                        }
+                    }
+                }
             }
         }
     }
 
     private fun navigateToPlayer(video: MediaItem) {
-        val action = VideosFragmentDirections.actionHomeToVideoPlayer(video.uri.toString())
-        findNavController().navigate(action)
+        val bundle = Bundle().apply {
+            putString("videoUri", video.uri.toString())
+        }
+        findNavController().navigate(R.id.action_home_to_videoPlayer, bundle)
     }
 
     override fun onDestroyView() {

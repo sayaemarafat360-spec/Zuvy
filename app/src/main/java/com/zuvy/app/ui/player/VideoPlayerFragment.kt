@@ -13,7 +13,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.navigation.fragment.navArgs
 import com.zuvy.app.R
 import com.zuvy.app.databinding.FragmentVideoPlayerBinding
 import com.zuvy.app.utils.formatDuration
@@ -25,7 +24,7 @@ class VideoPlayerFragment : Fragment() {
     private var _binding: FragmentVideoPlayerBinding? = null
     private val binding get() = _binding!!
 
-    private val args: VideoPlayerFragmentArgs by navArgs()
+    private var videoUri: String? = null
     private var player: ExoPlayer? = null
     private var isControlsVisible = true
     private var isLocked = false
@@ -36,6 +35,11 @@ class VideoPlayerFragment : Fragment() {
         if (!isLocked) {
             hideControls()
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        videoUri = arguments?.getString("videoUri")
     }
 
     override fun onCreateView(
@@ -59,8 +63,8 @@ class VideoPlayerFragment : Fragment() {
         player = ExoPlayer.Builder(requireContext()).build()
         binding.playerView.player = player
 
-        val videoUri = args.videoUri
-        val mediaItem = MediaItem.fromUri(Uri.parse(videoUri))
+        val uri = videoUri ?: return
+        val mediaItem = MediaItem.fromUri(Uri.parse(uri))
         player?.setMediaItem(mediaItem)
         player?.prepare()
         player?.playWhenReady = true

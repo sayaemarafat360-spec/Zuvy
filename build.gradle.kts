@@ -5,6 +5,7 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.48" apply false
     id("com.google.gms.google-services") version "4.4.0" apply false
     id("com.google.firebase.crashlytics") version "2.9.9" apply false
+    id("androidx.navigation.safeargs.kotlin") version "2.7.6" apply false
 }
 
 buildscript {
