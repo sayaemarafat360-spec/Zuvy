@@ -41,7 +41,17 @@ class MainViewModel @Inject constructor(
             try {
                 mediaRepository.loadAllMedia()
                 _videos.value = mediaRepository.getVideos()
-                _music.value = mediaRepository.getMusic()
+                _music.value = mediaRepository.getMusic().map { song ->
+                    MediaItem(
+                        id = song.id,
+                        name = song.title,
+                        uri = song.uri,
+                        duration = song.duration,
+                        size = song.size,
+                        width = 0,
+                        height = 0
+                    )
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {

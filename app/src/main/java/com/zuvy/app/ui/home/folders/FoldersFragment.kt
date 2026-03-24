@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.zuvy.app.R
@@ -14,6 +17,7 @@ import com.zuvy.app.databinding.FragmentFoldersBinding
 import com.zuvy.app.databinding.ItemFolderBinding
 import com.zuvy.app.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FoldersFragment : Fragment() {
@@ -47,33 +51,43 @@ class FoldersFragment : Fragment() {
     }
 
     private fun observeData() {
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                binding.shimmerLayout.startShimmer()
-                binding.shimmerLayout.visibility = View.VISIBLE
-                binding.foldersRecyclerView.visibility = View.GONE
-            } else {
-                binding.shimmerLayout.stopShimmer()
-                binding.shimmerLayout.visibility = View.GONE
-                binding.foldersRecyclerView.visibility = View.VISIBLE
-            }
-        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.isLoading.collect { isLoading ->
+                        if (isLoading) {
+                            binding.shimmerLayout.startShimmer()
+                            binding.shimmerLayout.visibility = View.VISIBLE
+                            binding.foldersRecyclerView.visibility = View.GONE
+                        } else {
+                            binding.shimmerLayout.stopShimmer()
+                            binding.shimmerLayout.visibility = View.GONE
+                            binding.foldersRecyclerView.visibility = View.VISIBLE
+                        }
+                    }
+                }
 
-        viewModel.folders.observe(viewLifecycleOwner) { folders ->
-            if (folders.isEmpty()) {
-                binding.emptyState.visibility = View.VISIBLE
-                binding.foldersRecyclerView.visibility = View.GONE
-            } else {
-                binding.emptyState.visibility = View.GONE
-                binding.foldersRecyclerView.visibility = View.VISIBLE
-                // foldersAdapter.submitList(folders)
+                launch {
+                    viewModel.folders.collect { folders ->
+                        if (folders.isEmpty()) {
+                            binding.emptyState.visibility = View.VISIBLE
+                            binding.foldersRecyclerView.visibility = View.GONE
+                        } else {
+                            binding.emptyState.visibility = View.GONE
+                            binding.foldersRecyclerView.visibility = View.VISIBLE
+                            // foldersAdapter.submitList(folders)
+                        }
+                    }
+                }
             }
         }
     }
 
     private fun navigateToFolderBrowser(folder: Folder) {
-        val action = FoldersFragmentDirections.actionHomeToFolderBrowser(folder.path)
-        findNavController().navigate(action)
+        val bundle = Bundle().apply {
+            putString("folderPath", folder.path)
+        }
+        findNavController().navigate(R.id.action_home_to_folderBrowser, bundle)
     }
 
     override fun onDestroyView() {

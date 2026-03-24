@@ -7,8 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -16,9 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.guolindev.permissionx.PermissionX
 import com.zuvy.app.R
 import com.zuvy.app.databinding.ActivityMainBinding
 import com.zuvy.app.utils.PreferenceManager
@@ -30,7 +26,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by androidx.activity.viewModels()
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
@@ -134,22 +130,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (needPermissions.isNotEmpty()) {
-            PermissionX.init(this)
-                .permissions(needPermissions)
-                .explainReasonBeforeRequest()
-                .onExplainRequestReason { scope, deniedList ->
-                    scope.showRequestReasonDialog(
-                        deniedList,
-                        getString(R.string.permission_reason),
-                        getString(R.string.ok),
-                        getString(R.string.cancel)
-                    )
+            val requestLauncher = androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions()
+            registerForActivityResult(requestLauncher) { results ->
+                val allGranted = results.values.all { it }
+                if (allGranted) {
+                    viewModel.loadMedia()
                 }
-                .request { allGranted, _ ->
-                    if (allGranted) {
-                        viewModel.loadMedia()
-                    }
-                }
+            }.launch(needPermissions.toTypedArray())
         } else {
             viewModel.loadMedia()
         }
