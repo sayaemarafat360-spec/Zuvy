@@ -46,10 +46,12 @@ class MainViewModel @Inject constructor(
                         id = song.id,
                         name = song.title,
                         uri = song.uri,
-                        duration = song.duration,
-                        size = song.size,
+                        path = song.uri.toString(),
+                        size = 0L,
+                        duration = song.dateAdded,
                         width = 0,
-                        height = 0
+                        height = 0,
+                        isVideo = false
                     )
                 }
             } catch (e: Exception) {
