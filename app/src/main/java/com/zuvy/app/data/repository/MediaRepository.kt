@@ -205,10 +205,6 @@ class MediaRepository @Inject constructor(
         _folders.addAll(folderMap.values.sortedByDescending { it.videoCount })
     }
 
-    fun getVideos(): List<MediaItem> = _videos.toList()
-    fun getMusic(): List<Song> = _music.toList()
-    fun getFolders(): List<String> = _folders.map { it.path }
-
     fun searchVideos(query: String): List<MediaItem> {
         return _videos.filter { it.name.contains(query, ignoreCase = true) }
     }

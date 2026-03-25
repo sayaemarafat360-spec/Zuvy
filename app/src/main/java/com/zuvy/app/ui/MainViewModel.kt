@@ -40,8 +40,8 @@ class MainViewModel @Inject constructor(
             _isLoading.value = true
             try {
                 mediaRepository.loadAllMedia()
-                _videos.value = mediaRepository.getVideos()
-                _music.value = mediaRepository.getMusic().map { song ->
+                _videos.value = mediaRepository.videos
+                _music.value = mediaRepository.music.map { song ->
                     MediaItem(
                         id = song.id,
                         name = song.title,
