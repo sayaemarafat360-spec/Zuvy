@@ -3,59 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Permissions -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
-    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.screen.portrait"
-        android:required="false" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    
+    <uses-feature android:name="android.hardware.screen.portrait" android:required="true" />
 
     <application
-        android:name=".ZuvyApplication"
+        android:name=".LudoBlitzApp"
         android:allowBackup="true"
-        android:appCategory="video"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:largeHeap="true"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Zuvy.Splash"
+        android:theme="@style/Theme.LudoBlitz"
         android:usesCleartextTraffic="true"
         tools:targetApi="34">
 
         <!-- Splash Activity -->
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.screens.SplashActivity"
             android:exported="true"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.Zuvy.Splash">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.LudoBlitz.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -64,91 +38,81 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".ui.MainActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.Zuvy">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+            android:name=".ui.screens.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:mimeType="video/*" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:mimeType="audio/*" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="file" />
-                <data android:mimeType="video/*" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="content" />
-                <data android:mimeType="video/*" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="http" />
-                <data android:scheme="https" />
-                <data android:mimeType="video/*" />
-            </intent-filter>
-        </activity>
-
-        <!-- Onboarding Activity -->
+        <!-- Game Activity -->
         <activity
-            android:name=".onboarding.OnboardingActivity"
+            android:name=".ui.screens.GameActivity"
             android:exported="false"
-            android:theme="@style/Theme.Zuvy" />
+            android:screenOrientation="portrait"
+            android:keepScreenOn="true" />
 
-        <!-- Music Service -->
-        <service
-            android:name=".services.MusicService"
-            android:enabled="true"
+        <!-- Online Lobby Activity -->
+        <activity
+            android:name=".ui.screens.OnlineLobbyActivity"
             android:exported="false"
-            android:foregroundServiceType="mediaPlayback">
-            <intent-filter>
-                <action android:name="androidx.media3.session.MediaSessionService" />
-            </intent-filter>
-        </service>
+            android:screenOrientation="portrait" />
 
-        <!-- Media Session Service -->
-        <service
-            android:name=".services.PlaybackService"
-            android:enabled="true"
+        <!-- Profile Activity -->
+        <activity
+            android:name=".ui.screens.ProfileActivity"
             android:exported="false"
-            android:foregroundServiceType="mediaPlayback">
-            <intent-filter>
-                <action android:name="android.media.browse.MediaBrowserService" />
-            </intent-filter>
-        </service>
+            android:screenOrientation="portrait" />
 
-        <!-- AdMob App ID -->
+        <!-- Settings Activity -->
+        <activity
+            android:name=".ui.screens.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Shop Activity -->
+        <activity
+            android:name=".ui.screens.ShopActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Leaderboard Activity -->
+        <activity
+            android:name=".ui.screens.LeaderboardActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Friends Activity -->
+        <activity
+            android:name=".ui.screens.FriendsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Tutorial Activity -->
+        <activity
+            android:name=".ui.screens.TutorialActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Google Sign-In -->
+        <activity
+            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- AdMob Meta Data -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
+        
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true" />
 
-        <!-- File Provider -->
+        <!-- Firebase Crashlytics -->
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="true" />
+
+        <!-- File Provider for sharing -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -158,31 +122,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-        <!-- Boot Receiver -->
-        <receiver
-            android:name=".receivers.BootReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Notification Receiver -->
-        <receiver
-            android:name=".receivers.MediaButtonReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MEDIA_BUTTON" />
-            </intent-filter>
-        </receiver>
-        
-        <!-- Scheduled Notification Receiver -->
-        <receiver
-            android:name=".receivers.NotificationReceiver"
-            android:enabled="true"
-            android:exported="false" />
 
     </application>
 

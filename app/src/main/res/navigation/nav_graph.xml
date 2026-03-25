@@ -5,222 +5,100 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
-    <!-- Home Tab -->
+    <!-- Home Fragment -->
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.zuvy.app.ui.home.HomeFragment"
-        android:label="@string/nav_home"
+        android:name="com.ludoblitz.app.ui.screens.HomeFragment"
+        android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_home_to_videoPlayer"
-            app:destination="@id/videoPlayerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            android:id="@+id/action_home_to_online_lobby"
+            app:destination="@id/onlineLobbyFragment" />
         <action
-            android:id="@+id/action_home_to_folderBrowser"
-            app:destination="@id/folderBrowserFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
+            android:id="@+id/action_home_to_profile"
+            app:destination="@id/profileFragment" />
         <action
-            android:id="@+id/action_home_to_playlistDetail"
-            app:destination="@id/playlistDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
-        <action
-            android:id="@+id/action_home_to_search"
-            app:destination="@id/searchFragment"
-            app:enterAnim="@anim/slide_up" />
+            android:id="@+id/action_home_to_leaderboard"
+            app:destination="@id/leaderboardFragment" />
     </fragment>
 
-    <!-- Music Tab -->
+    <!-- Play Fragment -->
     <fragment
-        android:id="@+id/musicFragment"
-        android:name="com.zuvy.app.ui.music.MusicFragment"
-        android:label="@string/nav_music"
-        tools:layout="@layout/fragment_music">
+        android:id="@+id/playFragment"
+        android:name="com.ludoblitz.app.ui.screens.PlayFragment"
+        android:label="Play"
+        tools:layout="@layout/fragment_play">
         <action
-            android:id="@+id/action_music_to_musicPlayer"
-            app:destination="@id/musicPlayerFragment"
-            app:enterAnim="@anim/slide_up" />
+            android:id="@+id/action_play_to_online_lobby"
+            app:destination="@id/onlineLobbyFragment" />
         <action
-            android:id="@+id/action_music_to_artistDetail"
-            app:destination="@id/artistDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
+            android:id="@+id/action_play_to_matchmaking"
+            app:destination="@id/matchmakingFragment" />
         <action
-            android:id="@+id/action_music_to_albumDetail"
-            app:destination="@id/albumDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
+            android:id="@+id/action_play_to_lobby"
+            app:destination="@id/gameLobbyFragment" />
     </fragment>
 
-    <!-- Discover Tab -->
+    <!-- Shop Fragment -->
     <fragment
-        android:id="@+id/discoverFragment"
-        android:name="com.zuvy.app.ui.discover.DiscoverFragment"
-        android:label="@string/nav_discover"
-        tools:layout="@layout/fragment_discover">
+        android:id="@+id/shopFragment"
+        android:name="com.ludoblitz.app.ui.screens.ShopFragment"
+        android:label="Shop"
+        tools:layout="@layout/fragment_shop" />
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.ludoblitz.app.ui.screens.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <!-- Login Fragment -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.ludoblitz.app.ui.screens.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_discover_to_onlinePlayer"
-            app:destination="@id/onlinePlayerFragment" />
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
 
-    <!-- More Tab -->
+    <!-- Online Lobby Fragment -->
     <fragment
-        android:id="@+id/moreFragment"
-        android:name="com.zuvy.app.ui.more.MoreFragment"
-        android:label="@string/nav_more"
-        tools:layout="@layout/fragment_more">
-        <action
-            android:id="@+id/action_more_to_settings"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_moreFragment_to_premiumFragment"
-            app:destination="@id/premiumFragment"
-            app:enterAnim="@anim/slide_up" />
-        <action
-            android:id="@+id/action_moreFragment_to_equalizerFragment"
-            app:destination="@id/equalizerFragment"
-            app:enterAnim="@anim/slide_up" />
-    </fragment>
+        android:id="@+id/onlineLobbyFragment"
+        android:name="com.ludoblitz.app.ui.screens.OnlineLobbyFragment"
+        android:label="Online Lobby"
+        tools:layout="@layout/fragment_online_lobby" />
 
-    <!-- Video Player -->
+    <!-- Game Lobby Fragment -->
     <fragment
-        android:id="@+id/videoPlayerFragment"
-        android:name="com.zuvy.app.ui.player.VideoPlayerFragment"
-        android:label="@string/now_playing"
-        tools:layout="@layout/fragment_video_player">
-        <argument
-            android:name="videoUri"
-            app:argType="string" />
-        <argument
-            android:name="videoName"
-            android:defaultValue="Video"
-            app:argType="string" />
-    </fragment>
+        android:id="@+id/gameLobbyFragment"
+        android:name="com.ludoblitz.app.ui.screens.GameLobbyFragment"
+        android:label="Game Lobby"
+        tools:layout="@layout/fragment_game_lobby" />
 
-    <!-- Music Player -->
+    <!-- Matchmaking Fragment -->
     <fragment
-        android:id="@+id/musicPlayerFragment"
-        android:name="com.zuvy.app.ui.player.MusicPlayerFragment"
-        android:label="@string/now_playing"
-        tools:layout="@layout/fragment_music_player" />
+        android:id="@+id/matchmakingFragment"
+        android:name="com.ludoblitz.app.ui.screens.MatchmakingFragment"
+        android:label="Finding Match"
+        tools:layout="@layout/fragment_matchmaking" />
 
-    <!-- Folder Browser -->
+    <!-- Leaderboard Fragment -->
     <fragment
-        android:id="@+id/folderBrowserFragment"
-        android:name="com.zuvy.app.ui.home.folders.FolderBrowserFragment"
-        android:label="@string/folders"
-        tools:layout="@layout/fragment_folder_browser">
-        <argument
-            android:name="folderPath"
-            app:argType="string" />
-        <argument
-            android:name="folderName"
-            android:defaultValue="Folder"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_folderBrowser_to_videoPlayer"
-            app:destination="@id/videoPlayerFragment" />
-    </fragment>
+        android:id="@+id/leaderboardFragment"
+        android:name="com.ludoblitz.app.ui.screens.LeaderboardFragment"
+        android:label="Leaderboard"
+        tools:layout="@layout/fragment_leaderboard" />
 
-    <!-- Playlist Detail -->
+    <!-- Game Fragment -->
     <fragment
-        android:id="@+id/playlistDetailFragment"
-        android:name="com.zuvy.app.ui.home.playlists.PlaylistDetailFragment"
-        android:label="@string/playlists"
-        tools:layout="@layout/fragment_playlist_detail">
-        <argument
-            android:name="playlistId"
-            app:argType="long" />
-        <argument
-            android:name="playlistName"
-            android:defaultValue="Playlist"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_playlistDetail_to_videoPlayer"
-            app:destination="@id/videoPlayerFragment" />
-    </fragment>
-
-    <!-- Artist Detail -->
-    <fragment
-        android:id="@+id/artistDetailFragment"
-        android:name="com.zuvy.app.ui.music.ArtistDetailFragment"
-        android:label="Artist"
-        tools:layout="@layout/fragment_artist_detail">
-        <argument
-            android:name="artistName"
-            app:argType="string" />
-        <argument
-            android:name="artistId"
-            android:defaultValue="-1L"
-            app:argType="long" />
-    </fragment>
-
-    <!-- Album Detail -->
-    <fragment
-        android:id="@+id/albumDetailFragment"
-        android:name="com.zuvy.app.ui.music.AlbumDetailFragment"
-        android:label="Album"
-        tools:layout="@layout/fragment_album_detail">
-        <argument
-            android:name="albumName"
-            app:argType="string" />
-        <argument
-            android:name="artistName"
-            android:defaultValue="Unknown Artist"
-            app:argType="string" />
-        <argument
-            android:name="albumId"
-            android:defaultValue="-1L"
-            app:argType="long" />
-    </fragment>
-
-    <!-- Online Player -->
-    <fragment
-        android:id="@+id/onlinePlayerFragment"
-        android:name="com.zuvy.app.ui.player.OnlinePlayerFragment"
-        android:label="@string/now_playing"
-        tools:layout="@layout/fragment_online_player" />
-
-    <!-- Settings -->
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.zuvy.app.ui.more.SettingsFragment"
-        android:label="@string/settings"
-        tools:layout="@layout/fragment_settings" />
-
-    <!-- Search -->
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.zuvy.app.ui.search.SearchFragment"
-        android:label="Search"
-        tools:layout="@layout/fragment_search">
-        <action
-            android:id="@+id/action_search_to_videoPlayer"
-            app:destination="@id/videoPlayerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
-        <action
-            android:id="@+id/action_search_to_musicPlayer"
-            app:destination="@id/musicPlayerFragment"
-            app:enterAnim="@anim/slide_up" />
-    </fragment>
-
-    <!-- Premium Fragment -->
-    <fragment
-        android:id="@+id/premiumFragment"
-        android:name="com.zuvy.app.premium.PremiumFragment"
-        android:label="Premium"
-        tools:layout="@layout/fragment_premium" />
-
-    <!-- Equalizer Fragment -->
-    <fragment
-        android:id="@+id/equalizerFragment"
-        android:name="com.zuvy.app.ui.player.EqualizerFragment"
-        android:label="@string/equalizer"
-        tools:layout="@layout/fragment_equalizer" />
+        android:id="@+id/gameFragment"
+        android:name="com.ludoblitz.app.ui.screens.GameFragment"
+        android:label="Game"
+        tools:layout="@layout/fragment_game" />
 
 </navigation>

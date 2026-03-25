@@ -1,13 +1,20 @@
-# Zuvy - Codemagic CI/CD Configuration
-# Two separate workflows: Debug Build and Release Build
+# Codemagic CI/CD Configuration for Ludo Blitz
+# This file configures the build process for building the app on Codemagic cloud
 
 workflows:
-  # Debug Build Workflow
-  debug-build:
-    name: Zuvy Debug Build
+  android-app:
+    name: Ludo Blitz
     max_build_duration: 30
     environment:
+      android: stable
       java: 17
+      groups:
+        - firebase_credentials  # Add Firebase service account credentials
+        - keystore_credentials  # Add signing keystore credentials
+    cache:
+      cache_paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
     triggering:
       events:
         - push
@@ -15,28 +22,38 @@ workflows:
       branch_patterns:
         - pattern: main
           include: true
-          source: true
         - pattern: develop
           include: true
-          source: true
-        - pattern: feature/*
-          include: true
-          source: true
+      cancel_previous_builds: true
     scripts:
-      - name: Download Gradle Wrapper
-        script: |
-          cd gradle/wrapper
-          curl -L -o gradle-wrapper.jar https://github.com/gradle/gradle/raw/v8.2.0/gradle/wrapper/gradle-wrapper.jar
-          cd ../..
       - name: Set up local properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-      - name: Grant execute permission
-        script: chmod +x ./gradlew
+      
+      - name: Clean project
+        script: |
+          ./gradlew clean
+      
+      - name: Run lint
+        script: |
+          ./gradlew lintDebug
+        ignore_failure: true
+      
+      - name: Run unit tests
+        script: |
+          ./gradlew testDebugUnitTest
+      
       - name: Build Debug APK
-        script: ./gradlew assembleDebug
+        script: |
+          ./gradlew assembleDebug
+      
+      - name: Build Release APK
+        script: |
+          ./gradlew assembleRelease
     artifacts:
       - app/build/outputs/apk/debug/*.apk
+      - app/build/outputs/apk/release/*.apk
+      - app/build/outputs/bundle/release/*.aab
     publishing:
       email:
         recipients:
@@ -44,43 +61,32 @@ workflows:
         notify:
           success: true
           failure: true
+      
+      # Firebase App Distribution (optional)
+      firebase:
+        firebase_service_credentials: $FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
+        android:
+          app_id: your-firebase-app-id
+          groups:
+            - testers
+          release_notes: "New build from Codemagic CI/CD"
 
-  # Release Build Workflow
-  release-build:
-    name: Zuvy Release Build
-    max_build_duration: 30
+  # Workflow for debug builds only
+  debug-build:
+    name: Debug Build
+    max_build_duration: 15
     environment:
+      android: stable
       java: 17
     triggering:
       events:
         - push
-        - tag
       branch_patterns:
-        - pattern: main
+        - pattern: feature/*
           include: true
-          source: true
-        - pattern: release/*
-          include: true
-          source: true
     scripts:
-      - name: Download Gradle Wrapper
+      - name: Build Debug APK
         script: |
-          cd gradle/wrapper
-          curl -L -o gradle-wrapper.jar https://github.com/gradle/gradle/raw/v8.2.0/gradle/wrapper/gradle-wrapper.jar
-          cd ../..
-      - name: Set up local properties
-        script: |
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-      - name: Grant execute permission
-        script: chmod +x ./gradlew
-      - name: Build Release APK
-        script: ./gradlew assembleRelease
+          ./gradlew assembleDebug
     artifacts:
-      - app/build/outputs/apk/release/*.apk
-    publishing:
-      email:
-        recipients:
-          - your-email@example.com
-        notify:
-          success: true
-          failure: true
+      - app/build/outputs/apk/debug/*.apk

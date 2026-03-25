@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game Lobby"
+        android:textAppearance="@style/TextAppearance.Headline2"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvRoomCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room Code: ABC123"
+        android:textAppearance="@style/TextAppearance.Subtitle"
+        android:layout_marginBottom="16dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPlayers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStartGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Start Game"
+        style="@style/ButtonPrimary" />
+
+</LinearLayout>

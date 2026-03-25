@@ -1,50 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Colors - Bluish Skyish with Purple -->
+    <!-- Primary Colors -->
     <color name="primary">#6C63FF</color>
-    <color name="primary_variant">#5046E5</color>
+    <color name="primary_variant">#5649C0</color>
     <color name="on_primary">#FFFFFF</color>
     
-    <color name="secondary">#00D9FF</color>
-    <color name="secondary_variant">#00B4D8</color>
+    <!-- Secondary Colors -->
+    <color name="secondary">#FF6B6B</color>
+    <color name="secondary_variant">#CC5555</color>
     <color name="on_secondary">#FFFFFF</color>
     
-    <!-- Tertiary - Sky Blue -->
-    <color name="tertiary">#87CEEB</color>
-    <color name="tertiary_variant">#6BB8DB</color>
-    <color name="on_tertiary">#1A1A2E</color>
-    
-    <!-- Background Colors - Dark Theme -->
-    <color name="background_dark">#0D0D1A</color>
-    <color name="surface_dark">#151528</color>
-    <color name="surface_variant_dark">#1E1E38</color>
-    <color name="on_background_dark">#FFFFFF</color>
-    <color name="on_surface_dark">#FFFFFF</color>
-    
     <!-- Background Colors - Light Theme -->
-    <color name="background_light">#F8F9FF</color>
+    <color name="background_light">#F8F9FA</color>
     <color name="surface_light">#FFFFFF</color>
-    <color name="surface_variant_light">#F0F2FF</color>
+    <color name="surface_variant_light">#F0F0F5</color>
     <color name="on_background_light">#1A1A2E</color>
     <color name="on_surface_light">#1A1A2E</color>
     
-    <!-- Accent Colors -->
-    <color name="accent_purple">#9D4EDD</color>
-    <color name="accent_blue">#00B4D8</color>
-    <color name="accent_sky">#48CAE4</color>
+    <!-- Background Colors - Dark Theme -->
+    <color name="background_dark">#0F0F1A</color>
+    <color name="surface_dark">#1A1A2E</color>
+    <color name="surface_variant_dark">#252540</color>
+    <color name="on_background_dark">#FFFFFF</color>
+    <color name="on_surface_dark">#FFFFFF</color>
     
-    <!-- Gradient Colors -->
-    <color name="gradient_start">#6C63FF</color>
-    <color name="gradient_end">#00D9FF</color>
-    <color name="gradient_purple_start">#9D4EDD</color>
-    <color name="gradient_purple_end">#6C63FF</color>
+    <!-- Accent Colors -->
+    <color name="accent_orange">#FF9F43</color>
+    <color name="accent_pink">#FF6B9D</color>
+    <color name="accent_teal">#00D9C4</color>
+    <color name="accent_purple">#A855F7</color>
+    <color name="accent_gold">#FFD700</color>
+    <color name="accent_silver">#C0C0C0</color>
+    <color name="accent_bronze">#CD7F32</color>
+    
+    <!-- Token Colors - Ludo -->
+    <color name="token_red">#E53935</color>
+    <color name="token_red_light">#FF8A80</color>
+    <color name="token_red_dark">#B71C1C</color>
+    
+    <color name="token_green">#43A047</color>
+    <color name="token_green_light">#A5D6A7</color>
+    <color name="token_green_dark">#1B5E20</color>
+    
+    <color name="token_yellow">#FDD835</color>
+    <color name="token_yellow_light">#FFFF8D</color>
+    <color name="token_yellow_dark">#F9A825</color>
+    
+    <color name="token_blue">#1E88E5</color>
+    <color name="token_blue_light">#90CAF9</color>
+    <color name="token_blue_dark">#0D47A1</color>
+    
+    <!-- Board Colors -->
+    <color name="board_background">#F5E6D3</color>
+    <color name="board_border">#8B4513</color>
+    <color name="board_path">#FFFFFF</color>
+    <color name="board_home_center">#F5F5DC</color>
+    
+    <!-- Safe Zone (Stars) -->
+    <color name="safe_zone">#FFD700</color>
+    <color name="safe_zone_star">#FFC107</color>
+    
+    <!-- UI Elements -->
+    <color name="divider">#E0E0E0</color>
+    <color name="divider_dark">#333355</color>
     
     <!-- Text Colors -->
-    <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#B0B0C0</color>
-    <color name="text_tertiary">#707090</color>
-    <color name="text_primary_light">#1A1A2E</color>
-    <color name="text_secondary_light">#6B7280</color>
+    <color name="text_primary">#1A1A2E</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="text_tertiary">#9CA3AF</color>
+    <color name="text_primary_dark">#FFFFFF</color>
+    <color name="text_secondary_dark">#B0B0C0</color>
+    <color name="text_tertiary_dark">#808090</color>
     
     <!-- Status Colors -->
     <color name="success">#10B981</color>
@@ -52,66 +78,51 @@
     <color name="error">#EF4444</color>
     <color name="info">#3B82F6</color>
     
-    <!-- Media Colors -->
-    <color name="video_accent">#FF6B6B</color>
-    <color name="music_accent">#1DB954</color>
-    <color name="folder_accent">#FFD93D</color>
-    <color name="playlist_accent">#A855F7</color>
+    <!-- Currency Colors -->
+    <color name="coin_gold">#FFD700</color>
+    <color name="coin_gold_dark">#DAA520</color>
+    <color name="gem_purple">#9333EA</color>
+    <color name="gem_purple_light">#A855F7</color>
     
-    <!-- Overlay Colors -->
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#667EEA</color>
+    <color name="gradient_end">#764BA2</color>
+    <color name="gradient_pink_start">#F093FB</color>
+    <color name="gradient_pink_end">#F5576C</color>
+    <color name="gradient_green_start">#11998E</color>
+    <color name="gradient_green_end">#38EF7D</color>
+    <color name="gradient_orange_start">#FF8008</color>
+    <color name="gradient_orange_end">#FFC837</color>
+    
+    <!-- Shimmer Effect -->
+    <color name="shimmer_highlight">#44FFFFFF</color>
+    <color name="shimmer_base">#33FFFFFF</color>
+    
+    <!-- Overlay -->
     <color name="overlay_dark">#80000000</color>
     <color name="overlay_light">#40FFFFFF</color>
-    <color name="scrim">#52000000</color>
     
     <!-- Card Colors -->
-    <color name="card_dark">#1E1E38</color>
     <color name="card_light">#FFFFFF</color>
-    <color name="surface_card">#1E1E38</color>
-    <color name="surface_elevated">#252542</color>
+    <color name="card_dark">#252540</color>
     
-    <!-- Premium Gradients -->
-    <color name="gradient_premium_start">#667eea</color>
-    <color name="gradient_premium_end">#764ba2</color>
-    <color name="gradient_card_start">#1E1E38</color>
-    <color name="gradient_card_end">#252542</color>
+    <!-- Button Colors -->
+    <color name="button_primary">#6C63FF</color>
+    <color name="button_secondary">#FF6B6B</color>
+    <color name="button_success">#10B981</color>
+    <color name="button_disabled">#9CA3AF</color>
     
-    <!-- Icon Colors -->
-    <color name="icon_active">#6C63FF</color>
-    <color name="icon_inactive">#707090</color>
+    <!-- Input Field Colors -->
+    <color name="input_background_light">#F3F4F6</color>
+    <color name="input_background_dark">#2D2D44</color>
+    <color name="input_border">#D1D5DB</color>
+    <color name="input_border_focused">#6C63FF</color>
     
-    <!-- Divider -->
-    <color name="divider_dark">#1AFFFFFF</color>
-    <color name="divider_light">#1A000000</color>
+    <!-- Ripple Colors -->
+    <color name="ripple_light">#1F000000</color>
+    <color name="ripple_dark">#1FFFFFFF</color>
     
-    <!-- Ripple -->
-    <color name="ripple_dark">#1AFFFFFF</color>
-    <color name="ripple_light">#1A000000</color>
-    
-    <!-- Player Colors -->
-    <color name="player_background">#000000</color>
-    <color name="player_controls">#80000000</color>
-    <color name="progress_background">#33FFFFFF</color>
-    <color name="progress">#6C63FF</color>
-    
-    <!-- Shimmer -->
-    <color name="shimmer_base">#1E1E38</color>
-    <color name="shimmer_highlight">#2A2A48</color>
-    
-    <!-- Aliases for layouts (dark theme defaults) -->
-    <color name="background">@color/background_dark</color>
-    <color name="surface">@color/surface_dark</color>
-    <color name="surface_variant">@color/surface_variant_dark</color>
-    <color name="on_background">@color/on_background_dark</color>
-    <color name="on_surface">@color/on_surface_dark</color>
-    <color name="accent">@color/primary</color>
-    <color name="divider">@color/divider_dark</color>
-    <color name="ripple">@color/ripple_dark</color>
-    <color name="card">@color/card_dark</color>
-    
-    <!-- Onboarding Page Colors -->
-    <color name="onboarding_page1">#0D0D1A</color>
-    <color name="onboarding_page2">#0F1525</color>
-    <color name="onboarding_page3">#150D1A</color>
-    <color name="onboarding_page4">#0D151A</color>
-    <color name="onboarding_page5">#15100D</color>
+    <!-- Transparent -->
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent">#80000000</color>
 </resources>

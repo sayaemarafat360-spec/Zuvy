@@ -1,13 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Board background -->
     <path
-        android:fillColor="#6C63FF"
-        android:pathData="M8,5v14l11,-7z" />
+        android:fillColor="#667EEA"
+        android:pathData="M10,10h80v80h-80z" />
+    
+    <!-- Red quadrant -->
     <path
-        android:fillColor="#00D9FF"
-        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM12,20c-4.41,0 -8,-3.59 -8,-8s3.59,-8 8,-8 8,3.59 8,8 -3.59,8 -8,8z" />
+        android:fillColor="#E53935"
+        android:pathData="M15,15h30v30h-30z" />
+    
+    <!-- Green quadrant -->
+    <path
+        android:fillColor="#43A047"
+        android:pathData="M55,15h30v30h-30z" />
+    
+    <!-- Yellow quadrant -->
+    <path
+        android:fillColor="#FDD835"
+        android:pathData="M55,55h30v30h-30z" />
+    
+    <!-- Blue quadrant -->
+    <path
+        android:fillColor="#1E88E5"
+        android:pathData="M15,55h30v30h-30z" />
+    
+    <!-- Center home -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M45,45h10v10h-10z" />
+    
+    <!-- Dice icon in center -->
+    <path
+        android:fillColor="#667EEA"
+        android:pathData="M42,42h16v16h-16z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,46m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M46,50m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,50m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,54m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" />
 </vector>
