@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/card_dark"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Thumbnail Grid -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/thumbnailGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- 2x2 Grid of Thumbnails -->
+            <ImageView
+                android:id="@+id/thumb1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/surface_variant_dark"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@id/thumb3"
+                app:layout_constraintEnd_toStartOf="@id/thumb2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_video_placeholder" />
+
+            <ImageView
+                android:id="@+id/thumb2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/surface_variant_dark"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@id/thumb4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/thumb1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_video_placeholder" />
+
+            <ImageView
+                android:id="@+id/thumb3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/surface_variant_dark"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/thumb4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/thumb1"
+                tools:src="@drawable/ic_video_placeholder" />
+
+            <ImageView
+                android:id="@+id/thumb4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/surface_variant_dark"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/thumb3"
+                app:layout_constraintTop_toBottomOf="@id/thumb2"
+                tools:src="@drawable/ic_video_placeholder" />
+
+            <!-- Gradient Overlay -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/thumbnail_gradient" />
+
+            <!-- Video Count Badge -->
+            <TextView
+                android:id="@+id/videoCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_duration"
+                android:fontFamily="@font/poppins"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textColor="@android:color/white"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="24 videos" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintTop_toBottomOf="@id/thumbnailGrid">
+
+            <TextView
+                android:id="@+id/playlistName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins"
+                android:maxLines="1"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                tools:text="My Favorites" />
+
+            <TextView
+                android:id="@+id/totalDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins"
+                android:maxLines="1"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                tools:text="2h 30m" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

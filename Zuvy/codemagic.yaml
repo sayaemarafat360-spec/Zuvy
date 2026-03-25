@@ -1,0 +1,86 @@
+# Zuvy - Codemagic CI/CD Configuration
+# Two separate workflows: Debug Build and Release Build
+
+workflows:
+  # Debug Build Workflow
+  debug-build:
+    name: Zuvy Debug Build
+    max_build_duration: 30
+    environment:
+      java: 17
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+        - pattern: develop
+          include: true
+          source: true
+        - pattern: feature/*
+          include: true
+          source: true
+    scripts:
+      - name: Download Gradle Wrapper
+        script: |
+          cd gradle/wrapper
+          curl -L -o gradle-wrapper.jar https://github.com/gradle/gradle/raw/v8.2.0/gradle/wrapper/gradle-wrapper.jar
+          cd ../..
+      - name: Set up local properties
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+      - name: Grant execute permission
+        script: chmod +x ./gradlew
+      - name: Build Debug APK
+        script: ./gradlew assembleDebug
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
+        notify:
+          success: true
+          failure: true
+
+  # Release Build Workflow
+  release-build:
+    name: Zuvy Release Build
+    max_build_duration: 30
+    environment:
+      java: 17
+    triggering:
+      events:
+        - push
+        - tag
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+        - pattern: release/*
+          include: true
+          source: true
+    scripts:
+      - name: Download Gradle Wrapper
+        script: |
+          cd gradle/wrapper
+          curl -L -o gradle-wrapper.jar https://github.com/gradle/gradle/raw/v8.2.0/gradle/wrapper/gradle-wrapper.jar
+          cd ../..
+      - name: Set up local properties
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+      - name: Grant execute permission
+        script: chmod +x ./gradlew
+      - name: Build Release APK
+        script: ./gradlew assembleRelease
+    artifacts:
+      - app/build/outputs/apk/release/*.apk
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
+        notify:
+          success: true
+          failure: true

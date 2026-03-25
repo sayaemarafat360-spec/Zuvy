@@ -88,6 +88,10 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("androidx.hilt:hilt-navigation-fragment:1.1.0")
+    implementation("androidx.hilt:hilt-work:1.1.0")
+    
+    // WorkManager
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
     
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
@@ -96,12 +100,13 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     
-    // ExoPlayer for Video/Audio
+    // ExoPlayer for Video/Audio (Media3)
     implementation("androidx.media3:media3-exoplayer:1.2.1")
     implementation("androidx.media3:media3-exoplayer-dash:1.2.1")
     implementation("androidx.media3:media3-exoplayer-hls:1.2.1")
     implementation("androidx.media3:media3-ui:1.2.1")
     implementation("androidx.media3:media3-session:1.2.1")
+    implementation("androidx.media3:media3-common:1.2.1")
     
     // Image Loading
     implementation("io.coil-kt:coil:2.5.0")
@@ -110,9 +115,10 @@ dependencies {
     // Shimmer Effect
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     
-    // Glide for thumbnails
+    // Glide for thumbnails + Palette for colors
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("androidx.palette:palette-ktx:1.0.0")
     
     // Room Database
     implementation("androidx.room:room-runtime:2.6.1")

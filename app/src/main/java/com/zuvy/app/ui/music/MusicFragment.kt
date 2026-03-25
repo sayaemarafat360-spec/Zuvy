@@ -5,11 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.zuvy.app.R
 import com.zuvy.app.databinding.FragmentMusicBinding
+import com.zuvy.app.player.PlayerManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MusicFragment : Fragment() {
@@ -18,6 +25,9 @@ class MusicFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var pagerAdapter: MusicPagerAdapter
+    
+    @Inject
+    lateinit var playerManager: PlayerManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +42,7 @@ class MusicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViewPager()
         setupMiniPlayer()
+        observePlayerState()
     }
 
     private fun setupViewPager() {
@@ -56,15 +67,36 @@ class MusicFragment : Fragment() {
         }
 
         binding.playPauseButton.setOnClickListener {
-            // TODO: Toggle play/pause
+            playerManager.playPause()
         }
 
         binding.nextButton.setOnClickListener {
-            // TODO: Next track
+            playerManager.playNext()
         }
+    }
 
-        // Show mini player (for demo)
-        binding.miniPlayer.visibility = View.VISIBLE
+    private fun observePlayerState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    playerManager.currentMedia.collect { media ->
+                        if (media != null) {
+                            binding.miniPlayer.visibility = View.VISIBLE
+                            binding.songTitle.text = media.name
+                        } else {
+                            binding.miniPlayer.visibility = View.GONE
+                        }
+                    }
+                }
+
+                launch {
+                    playerManager.isPlaying.collect { isPlaying ->
+                        val iconRes = if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play
+                        binding.playPauseButton.setImageResource(iconRes)
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

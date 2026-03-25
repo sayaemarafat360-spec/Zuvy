@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.transition.MaterialElevationScale
 import com.zuvy.app.R
 import com.zuvy.app.data.model.MediaItem
 import com.zuvy.app.databinding.FragmentVideosBinding
@@ -47,41 +50,49 @@ class VideosFragment : Fragment() {
         setupRecyclerView()
         setupClickListeners()
         observeData()
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     private fun setupRecyclerView() {
-        videosAdapter = VideosAdapter { video ->
-            navigateToPlayer(video)
+        videosAdapter = VideosAdapter { video, thumbnail ->
+            navigateToPlayer(video, thumbnail)
         }
         
         binding.videosRecyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = videosAdapter
             setHasFixedSize(true)
+            setItemViewCacheSize(20)
         }
     }
 
     private fun setupClickListeners() {
         binding.sortButton.setOnClickListener {
-            // TODO: Show sort dialog
+            showSortDialog()
         }
 
         binding.viewModeButton.setOnClickListener {
             toggleViewMode()
         }
+        
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.loadMedia()
+            binding.swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun toggleViewMode() {
         isGridView = !isGridView
-        val layoutManager = if (isGridView) {
-            GridLayoutManager(requireContext(), 2)
-        } else {
-            GridLayoutManager(requireContext(), 1)
-        }
-        binding.videosRecyclerView.layoutManager = layoutManager
+        val spanCount = if (isGridView) 2 else 1
+        (binding.videosRecyclerView.layoutManager as GridLayoutManager).spanCount = spanCount
         binding.viewModeButton.setImageResource(
             if (isGridView) R.drawable.ic_list else R.drawable.ic_grid
         )
+    }
+
+    private fun showSortDialog() {
+        // Show sort options
     }
 
     private fun observeData() {
@@ -117,11 +128,22 @@ class VideosFragment : Fragment() {
         }
     }
 
-    private fun navigateToPlayer(video: MediaItem) {
-        val bundle = Bundle().apply {
-            putString("videoUri", video.uri.toString())
+    private fun navigateToPlayer(video: MediaItem, thumbnail: View) {
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = 300
         }
-        findNavController().navigate(R.id.action_home_to_videoPlayer, bundle)
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = 300
+        }
+
+        val extras = FragmentNavigatorExtras(thumbnail to "video_thumbnail_${video.id}")
+        
+        val direction = HomeFragmentDirections.actionHomeToVideoPlayer(
+            videoUri = video.uri.toString(),
+            videoName = video.name
+        )
+        
+        findNavController().navigate(direction, extras)
     }
 
     override fun onDestroyView() {
@@ -130,7 +152,7 @@ class VideosFragment : Fragment() {
     }
 
     inner class VideosAdapter(
-        private val onVideoClick: (MediaItem) -> Unit
+        private val onVideoClick: (MediaItem, View) -> Unit
     ) : RecyclerView.Adapter<VideosAdapter.VideoViewHolder>() {
 
         private val items = mutableListOf<MediaItem>()
@@ -154,20 +176,26 @@ class VideosFragment : Fragment() {
 
         override fun getItemCount(): Int = items.size
 
+        override fun onViewRecycled(holder: VideoViewHolder) {
+            super.onViewRecycled(holder)
+            // Clear Glide request
+            Glide.with(holder.itemView.context).clear(holder.binding.thumbnail)
+        }
+
         inner class VideoViewHolder(
-            private val binding: ItemVideoBinding
+            val binding: ItemVideoBinding
         ) : RecyclerView.ViewHolder(binding.root) {
 
             init {
                 binding.root.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        onVideoClick(items[position])
+                        onVideoClick(items[position], binding.thumbnail)
                     }
                 }
 
                 binding.moreButton.setOnClickListener {
-                    // TODO: Show options menu
+                    showVideoOptions(items[bindingAdapterPosition])
                 }
             }
 
@@ -175,15 +203,28 @@ class VideosFragment : Fragment() {
                 binding.title.text = item.name
                 binding.duration.text = item.duration.formatDuration()
                 binding.size.text = item.size.formatFileSize()
-                binding.resolution.text = "${item.width}x${item.height}"
+                
+                if (item.width > 0 && item.height > 0) {
+                    binding.resolution.text = "${item.width}x${item.height}"
+                    binding.resolution.visibility = View.VISIBLE
+                } else {
+                    binding.resolution.visibility = View.GONE
+                }
 
-                // Load thumbnail
-                Glide.with(binding.thumbnail)
+                // Set transition name
+                binding.thumbnail.transitionName = "video_thumbnail_${item.id}"
+
+                // Load thumbnail with Glide
+                Glide.with(binding.thumbnail.context)
                     .load(item.uri)
                     .placeholder(R.drawable.ic_video_placeholder)
                     .centerCrop()
                     .into(binding.thumbnail)
             }
         }
+    }
+    
+    private fun showVideoOptions(video: MediaItem) {
+        // Show bottom sheet with options
     }
 }

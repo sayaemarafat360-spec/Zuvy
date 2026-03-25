@@ -69,7 +69,15 @@
         android:id="@+id/videoPlayerFragment"
         android:name="com.zuvy.app.ui.player.VideoPlayerFragment"
         android:label="@string/now_playing"
-        tools:layout="@layout/fragment_video_player" />
+        tools:layout="@layout/fragment_video_player">
+        <argument
+            android:name="videoUri"
+            app:argType="string" />
+        <argument
+            android:name="videoName"
+            android:defaultValue="Video"
+            app:argType="string" />
+    </fragment>
 
     <!-- Music Player -->
     <fragment
@@ -83,14 +91,36 @@
         android:id="@+id/folderBrowserFragment"
         android:name="com.zuvy.app.ui.home.folders.FolderBrowserFragment"
         android:label="@string/folders"
-        tools:layout="@layout/fragment_folder_browser" />
+        tools:layout="@layout/fragment_folder_browser">
+        <argument
+            android:name="folderPath"
+            app:argType="string" />
+        <argument
+            android:name="folderName"
+            android:defaultValue="Folder"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_folderBrowser_to_videoPlayer"
+            app:destination="@id/videoPlayerFragment" />
+    </fragment>
 
     <!-- Playlist Detail -->
     <fragment
         android:id="@+id/playlistDetailFragment"
         android:name="com.zuvy.app.ui.home.playlists.PlaylistDetailFragment"
         android:label="@string/playlists"
-        tools:layout="@layout/fragment_playlist_detail" />
+        tools:layout="@layout/fragment_playlist_detail">
+        <argument
+            android:name="playlistId"
+            app:argType="long" />
+        <argument
+            android:name="playlistName"
+            android:defaultValue="Playlist"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_playlistDetail_to_videoPlayer"
+            app:destination="@id/videoPlayerFragment" />
+    </fragment>
 
     <!-- Online Player -->
     <fragment
