@@ -26,6 +26,8 @@ class MiniPlayerView @JvmOverloads constructor(
     private val binding: ViewMiniPlayerBinding
     private var playerManager: PlayerManager? = null
     private var onExpandListener: (() -> Unit)? = null
+    private var onCollapseListener: (() -> Unit)? = null
+    private var isExpanded = false
 
     init {
         binding = ViewMiniPlayerBinding.inflate(LayoutInflater.from(context), this, true)
@@ -35,6 +37,7 @@ class MiniPlayerView @JvmOverloads constructor(
     private fun setupClickListeners() {
         binding.root.setOnClickListener {
             onExpandListener?.invoke()
+            isExpanded = true
         }
 
         binding.playPauseButton.setOnClickListener {
@@ -48,6 +51,7 @@ class MiniPlayerView @JvmOverloads constructor(
         binding.closeButton.setOnClickListener {
             playerManager?.getPlayer()?.stop()
             visibility = View.GONE
+            isExpanded = false
         }
     }
 
@@ -55,9 +59,20 @@ class MiniPlayerView @JvmOverloads constructor(
         onExpandListener = listener
     }
 
+    fun setOnCollapseListener(listener: () -> Unit) {
+        onCollapseListener = listener
+    }
+
     fun setPlayerManager(manager: PlayerManager) {
         playerManager = manager
     }
+
+    fun collapse() {
+        isExpanded = false
+        onCollapseListener?.invoke()
+    }
+
+    fun isPlayerExpanded(): Boolean = isExpanded
 
     fun observe(lifecycleOwner: LifecycleOwner, manager: PlayerManager) {
         playerManager = manager

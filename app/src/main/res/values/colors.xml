@@ -107,4 +107,11 @@
     <color name="divider">@color/divider_dark</color>
     <color name="ripple">@color/ripple_dark</color>
     <color name="card">@color/card_dark</color>
+    
+    <!-- Onboarding Page Colors -->
+    <color name="onboarding_page1">#0D0D1A</color>
+    <color name="onboarding_page2">#0F1525</color>
+    <color name="onboarding_page3">#150D1A</color>
+    <color name="onboarding_page4">#0D151A</color>
+    <color name="onboarding_page5">#15100D</color>
 </resources>

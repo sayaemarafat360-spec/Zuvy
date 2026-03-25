@@ -115,6 +115,12 @@
             </intent-filter>
         </activity>
 
+        <!-- Onboarding Activity -->
+        <activity
+            android:name=".onboarding.OnboardingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Zuvy" />
+
         <!-- Music Service -->
         <service
             android:name=".services.MusicService"

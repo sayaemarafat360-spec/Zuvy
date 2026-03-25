@@ -76,6 +76,26 @@
                 android:layout_height="3dp"
                 android:layout_gravity="bottom"
                 android:background="@color/primary" />
+            
+            <!-- Selection Checkbox (visible in multi-select mode) -->
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="top|start"
+                android:layout_margin="8dp"
+                android:buttonTint="@color/accent"
+                android:visibility="gone"
+                tools:visibility="visible" />
+            
+            <!-- Selection Overlay -->
+            <View
+                android:id="@+id/selectionOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#406C63FF"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
         </FrameLayout>
 

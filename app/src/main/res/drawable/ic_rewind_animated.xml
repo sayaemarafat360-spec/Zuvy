@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Rewind circles -->
+    <path
+        android:pathData="M24,8A16,16 0,1 1,8 24"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF"
+        android:fillColor="@android:color/transparent"/>
+    
+    <!-- Arrow -->
+    <path
+        android:pathData="M8,24L14,18V30L8,24Z"
+        android:fillColor="#FFFFFF"/>
+    
+    <!-- 10 text -->
+    <path
+        android:pathData="M20,22h2v4h-2zM23,20h2v6h-2zM26,22h2v4h-2z"
+        android:fillColor="#FFFFFF"/>
+</vector>

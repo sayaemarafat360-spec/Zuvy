@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <!-- Player View -->
+    <!-- ==================== PLAYER SURFACE ==================== -->
     <androidx.media3.ui.PlayerView
         android:id="@+id/playerView"
         android:layout_width="match_parent"
@@ -22,166 +22,297 @@
         android:scaleType="centerCrop"
         android:visibility="invisible" />
 
-    <!-- Gesture Overlay -->
+    <!-- ==================== GESTURE OVERLAY ==================== -->
     <View
         android:id="@+id/gestureOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Loading Progress -->
-    <ProgressBar
-        android:id="@+id/loadingProgress"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+    <!-- ==================== LOADING OVERLAY ==================== -->
+    <LinearLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone" />
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
+        <ProgressBar
+            android:id="@+id/loadingProgress"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:indeterminateTint="#6C63FF"/>
+
+        <TextView
+            android:id="@+id/loadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Buffering..."
+            android:textColor="@android:color/white"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <!-- ==================== GESTURE FEEDBACK OVERLAYS ==================== -->
+    
     <!-- Brightness Overlay -->
     <LinearLayout
         android:id="@+id/brightnessOverlay"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
         android:layout_marginStart="32dp"
-        android:background="@drawable/bg_circle"
+        android:background="@drawable/bg_glassmorphic"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:visibility="gone">
+        android:padding="12dp"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <ImageView
+            android:id="@+id/brightnessIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_brightness"
-            android:tint="@android:color/white" />
+            android:tint="@android:color/white"/>
 
         <ProgressBar
             android:id="@+id/brightnessProgress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="6dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
             android:max="100"
             android:progress="50"
-            android:progressDrawable="@drawable/seekbar_progress" />
+            android:progressDrawable="@drawable/seekbar_progress_premium"/>
 
         <TextView
             android:id="@+id/brightnessValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:text="50%"
             android:textColor="@android:color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
     <!-- Volume Overlay -->
     <LinearLayout
         android:id="@+id/volumeOverlay"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/bg_circle"
+        android:background="@drawable/bg_glassmorphic"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="12dp"
         android:visibility="gone">
 
         <ImageView
+            android:id="@+id/volumeIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_volume"
-            android:tint="@android:color/white" />
+            android:tint="@android:color/white"/>
 
         <ProgressBar
             android:id="@+id/volumeProgress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="6dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
             android:max="100"
             android:progress="50"
-            android:progressDrawable="@drawable/seekbar_progress" />
+            android:progressDrawable="@drawable/seekbar_progress_premium"/>
 
         <TextView
             android:id="@+id/volumeValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:text="50%"
             android:textColor="@android:color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
-    <!-- Seek Overlay -->
+    <!-- Seek Overlay (Horizontal Swipe) -->
     <LinearLayout
         android:id="@+id/seekOverlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/bg_circle"
+        android:background="@drawable/bg_glassmorphic"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="20dp"
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/seekOverlayText"
+            android:id="@+id/seekOverlayTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+10s"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <!-- Seek Indicator (for double tap) -->
-    <LinearLayout
-        android:id="@+id/seekIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/bg_circle"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:visibility="invisible">
+            android:textColor="#6C63FF"
+            android:textSize="32sp"
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/seekText"
+            android:id="@+id/seekOverlayPosition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="05:30"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <!-- Double Tap Seek Indicators -->
+    <LinearLayout
+        android:id="@+id/seekLeftIndicator"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginStart="60dp"
+        android:background="@drawable/bg_glassmorphic_circle"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_rewind"
+            android:tint="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/seekLeftText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-10s"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/seekRightIndicator"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/bg_glassmorphic_circle"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_forward"
+            android:tint="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/seekRightText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+10s"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="14sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
-    <!-- Play/Pause Indicators -->
+    <!-- Play/Pause Center Indicator -->
     <ImageView
         android:id="@+id/playIndicator"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_play"
-        android:tint="@android:color/white"
-        android:visibility="gone" />
+        android:src="@drawable/ic_play_glow"
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/pauseIndicator"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_pause"
-        android:tint="@android:color/white"
-        android:visibility="gone" />
+        android:src="@drawable/ic_pause_glow"
+        android:visibility="gone"/>
 
-    <!-- Lock Overlay -->
+    <!-- Speed Boost Indicator -->
+    <LinearLayout
+        android:id="@+id/speedIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_glassmorphic"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SPEED"
+            android:textColor="#6C63FF"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/speedIndicatorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.0x"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <!-- ==================== SEEK PREVIEW ==================== -->
+    <LinearLayout
+        android:id="@+id/seekPreviewContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/bg_glassmorphic"
+        android:orientation="vertical"
+        android:padding="4dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/seekPreviewThumbnail"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_video_placeholder"/>
+
+        <TextView
+            android:id="@+id/seekPreviewTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:text="05:30"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <!-- ==================== LOCK OVERLAY ==================== -->
     <LinearLayout
         android:id="@+id/lockOverlay"
         android:layout_width="match_parent"
@@ -192,32 +323,41 @@
 
         <ImageButton
             android:id="@+id/unlockButton"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="@drawable/bg_circle"
-            android:padding="16dp"
-            android:src="@drawable/ic_lock_open"
-            android:tint="@android:color/white" />
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/bg_glassmorphic_circle"
+            android:padding="20dp"
+            android:src="@drawable/ic_lock_animated"
+            android:tint="@android:color/white"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:text="Screen Locked"
             android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Tap to unlock"
+            android:textColor="#808080"
+            android:textSize="12sp"/>
 
     </LinearLayout>
 
-    <!-- Controls Overlay -->
+    <!-- ==================== CONTROLS OVERLAY ==================== -->
     <LinearLayout
         android:id="@+id/controlsOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Top Controls -->
+        <!-- ========== TOP BAR (Glassmorphic) ========== -->
         <LinearLayout
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/controls_gradient_top"
@@ -227,47 +367,75 @@
 
             <ImageButton
                 android:id="@+id/backButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_control_button"
                 android:src="@drawable/ic_arrow_back"
-                android:tint="@android:color/white" />
+                android:tint="@android:color/white"/>
 
-            <TextView
-                android:id="@+id/videoTitle"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                tools:text="Video Title" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/videoTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="Video Title"/>
+
+                <TextView
+                    android:id="@+id/videoInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#B0B0B0"
+                    android:textSize="12sp"
+                    tools:text="1920x1080 • 1.2 GB"/>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/settingsButton"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_control_button"
+                android:src="@drawable/ic_settings_advanced"
+                android:tint="@android:color/white"/>
 
             <ImageButton
                 android:id="@+id/pipButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_control_button"
                 android:src="@drawable/ic_pip"
-                android:tint="@android:color/white" />
+                android:tint="@android:color/white"/>
 
             <ImageButton
-                android:id="@+id/sleepButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_sleep"
-                android:tint="@android:color/white" />
+                android:id="@+id/moreButton"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_control_button"
+                android:src="@drawable/ic_more_vertical"
+                android:tint="@android:color/white"/>
 
         </LinearLayout>
 
-        <!-- Center Controls -->
+        <!-- ========== CENTER CONTROLS ========== -->
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -276,125 +444,191 @@
             android:orientation="horizontal"
             android:paddingVertical="24dp">
 
+            <!-- Previous -->
             <ImageButton
-                android:id="@+id/rewindButton"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_circle_ripple"
-                android:src="@drawable/ic_rewind"
-                android:tint="@android:color/white" />
+                android:id="@+id/previousButton"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_control_button"
+                android:src="@drawable/ic_skip_previous"
+                android:tint="@android:color/white"/>
 
+            <!-- Rewind -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp">
+
+                <ImageButton
+                    android:id="@+id/rewindButton"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_control_button"
+                    android:src="@drawable/ic_rewind"
+                    android:tint="@android:color/white"/>
+
+            </FrameLayout>
+
+            <!-- Play/Pause (Main) -->
             <ImageButton
                 android:id="@+id/playPauseButton"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_marginHorizontal="32dp"
-                android:background="@drawable/bg_circle_ripple"
-                android:padding="16dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_play_button_glow"
+                android:padding="20dp"
                 android:src="@drawable/ic_play"
-                android:tint="@android:color/white" />
+                android:tint="@android:color/white"/>
 
+            <!-- Forward -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp">
+
+                <ImageButton
+                    android:id="@+id/forwardButton"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_control_button"
+                    android:src="@drawable/ic_forward"
+                    android:tint="@android:color/white"/>
+
+            </FrameLayout>
+
+            <!-- Next -->
             <ImageButton
-                android:id="@+id/forwardButton"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_circle_ripple"
-                android:src="@drawable/ic_forward"
-                android:tint="@android:color/white" />
+                android:id="@+id/nextButton"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_control_button"
+                android:src="@drawable/ic_skip_next"
+                android:tint="@android:color/white"/>
 
         </LinearLayout>
 
-        <!-- Bottom Controls -->
+        <!-- ========== BOTTOM BAR (Glassmorphic) ========== -->
         <LinearLayout
+            android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/controls_gradient_bottom"
             android:orientation="vertical"
             android:padding="12dp">
 
-            <!-- Progress Bar -->
-            <LinearLayout
+            <!-- Seek Bar with Chapters -->
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/currentPosition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0:00"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
+                <!-- Chapter Markers -->
+                <LinearLayout
+                    android:id="@+id/chapterMarkers"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="8dp"
+                    android:orientation="horizontal"/>
 
+                <!-- Seek Bar -->
                 <SeekBar
                     android:id="@+id/progressBar"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:layout_weight="1"
                     android:max="100"
-                    android:progressDrawable="@drawable/seekbar_progress"
-                    android:thumb="@drawable/seekbar_thumb" />
+                    android:progressDrawable="@drawable/seekbar_progress_premium"
+                    android:thumb="@drawable/seekbar_thumb_premium"/>
 
-                <TextView
-                    android:id="@+id/duration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0:00"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
+            </FrameLayout>
 
-            </LinearLayout>
-
-            <!-- Control Buttons -->
+            <!-- Time & Controls Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+                <!-- Lock -->
                 <ImageButton
                     android:id="@+id/lockButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="@drawable/bg_control_button"
                     android:src="@drawable/ic_lock_open"
-                    android:tint="@android:color/white" />
+                    android:tint="@android:color/white"/>
 
+                <!-- Speed -->
                 <TextView
                     android:id="@+id/speedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    android:text="1x"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_control_button"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="8dp"
+                    android:text="1.0x"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
+                <!-- Current Time -->
+                <TextView
+                    android:id="@+id/currentPosition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="0:00"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp"/>
+
+                <!-- Spacer -->
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"/>
 
+                <!-- Duration -->
                 <TextView
-                    android:id="@+id/resolution"
+                    android:id="@+id/duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="0:00"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    tools:text="1920x1080" />
+                    android:textSize="13sp"/>
 
+                <!-- Quality Badge -->
+                <TextView
+                    android:id="@+id/qualityBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_glassmorphic_light"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="1080p"
+                    android:textColor="#6C63FF"
+                    android:textSize="11sp"
+                    android:textStyle="bold"/>
+
+                <!-- Aspect Ratio -->
+                <ImageButton
+                    android:id="@+id/aspectButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_control_button"
+                    android:src="@drawable/ic_aspect_ratio"
+                    android:tint="@android:color/white"/>
+
+                <!-- Fullscreen -->
                 <ImageButton
                     android:id="@+id/fullscreenButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="@drawable/bg_control_button"
                     android:src="@drawable/ic_fullscreen"
-                    android:tint="@android:color/white" />
+                    android:tint="@android:color/white"/>
 
             </LinearLayout>
 

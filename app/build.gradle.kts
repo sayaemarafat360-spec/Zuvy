@@ -169,6 +169,9 @@ dependencies {
     // Chip Navigation
     implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
     
+    // Timber for logging
+    implementation("com.jakewharton.timber:timber:5.0.1")
+    
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

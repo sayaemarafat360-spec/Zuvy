@@ -28,6 +28,10 @@
             app:destination="@id/playlistDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_home_to_search"
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/slide_up" />
     </fragment>
 
     <!-- Music Tab -->
@@ -40,6 +44,16 @@
             android:id="@+id/action_music_to_musicPlayer"
             app:destination="@id/musicPlayerFragment"
             app:enterAnim="@anim/slide_up" />
+        <action
+            android:id="@+id/action_music_to_artistDetail"
+            app:destination="@id/artistDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_music_to_albumDetail"
+            app:destination="@id/albumDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
 
     <!-- Discover Tab -->
@@ -62,6 +76,14 @@
         <action
             android:id="@+id/action_more_to_settings"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_premiumFragment"
+            app:destination="@id/premiumFragment"
+            app:enterAnim="@anim/slide_up" />
+        <action
+            android:id="@+id/action_moreFragment_to_equalizerFragment"
+            app:destination="@id/equalizerFragment"
+            app:enterAnim="@anim/slide_up" />
     </fragment>
 
     <!-- Video Player -->
@@ -122,6 +144,40 @@
             app:destination="@id/videoPlayerFragment" />
     </fragment>
 
+    <!-- Artist Detail -->
+    <fragment
+        android:id="@+id/artistDetailFragment"
+        android:name="com.zuvy.app.ui.music.ArtistDetailFragment"
+        android:label="Artist"
+        tools:layout="@layout/fragment_artist_detail">
+        <argument
+            android:name="artistName"
+            app:argType="string" />
+        <argument
+            android:name="artistId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <!-- Album Detail -->
+    <fragment
+        android:id="@+id/albumDetailFragment"
+        android:name="com.zuvy.app.ui.music.AlbumDetailFragment"
+        android:label="Album"
+        tools:layout="@layout/fragment_album_detail">
+        <argument
+            android:name="albumName"
+            app:argType="string" />
+        <argument
+            android:name="artistName"
+            android:defaultValue="Unknown Artist"
+            app:argType="string" />
+        <argument
+            android:name="albumId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
     <!-- Online Player -->
     <fragment
         android:id="@+id/onlinePlayerFragment"
@@ -152,5 +208,19 @@
             app:destination="@id/musicPlayerFragment"
             app:enterAnim="@anim/slide_up" />
     </fragment>
+
+    <!-- Premium Fragment -->
+    <fragment
+        android:id="@+id/premiumFragment"
+        android:name="com.zuvy.app.premium.PremiumFragment"
+        android:label="Premium"
+        tools:layout="@layout/fragment_premium" />
+
+    <!-- Equalizer Fragment -->
+    <fragment
+        android:id="@+id/equalizerFragment"
+        android:name="com.zuvy.app.ui.player.EqualizerFragment"
+        android:label="@string/equalizer"
+        tools:layout="@layout/fragment_equalizer" />
 
 </navigation>

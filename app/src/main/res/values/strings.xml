@@ -206,4 +206,90 @@
     <string name="toast_now_playing">Now playing</string>
     <string name="toast_scan_started">Scanning for media…</string>
     <string name="toast_scan_complete">Media scan complete</string>
+    
+    <!-- Music Player -->
+    <string name="lyrics">Lyrics</string>
+    <string name="queue">Queue</string>
+    <string name="speed">Speed</string>
+    <string name="favorite">Favorite</string>
+    <string name="crossfade">Crossfade</string>
+    <string name="gapless_playback">Gapless Playback</string>
+    <string name="audio_effects">Audio Effects</string>
+    <string name="surround_sound">Surround Sound</string>
+    <string name="reset">Reset</string>
+    <string name="enable_equalizer">Enable Equalizer</string>
+    
+    <!-- Equalizer Presets -->
+    <string name="presets">Presets</string>
+    <string name="flat">Flat</string>
+    <string name="bass_boost">Bass Boost</string>
+    <string name="treble_boost">Treble Boost</string>
+    <string name="vocal">Vocal</string>
+    <string name="rock">Rock</string>
+    <string name="pop">Pop</string>
+    <string name="jazz">Jazz</string>
+    <string name="electronic">Electronic</string>
+    <string name="classical">Classical</string>
+    <string name="hip_hop">Hip Hop</string>
+    <string name="acoustic">Acoustic</string>
+    <string name="loudness">Loudness</string>
+    
+    <!-- Crossfade Settings -->
+    <string name="crossfade_duration">Crossfade Duration</string>
+    <string name="crossfade_off">Off</string>
+    <string name="crossfade_seconds">%d seconds</string>
+    
+    <!-- Notification -->
+    <string name="notification_channel_music">Music Playback</string>
+    <string name="notification_channel_music_desc">Shows playback controls for music</string>
+    <string name="add_to_favorites">Add to Favorites</string>
+    <string name="remove_from_favorites">Remove from Favorites</string>
+    
+    <!-- Lock Screen -->
+    <string name="lock_screen_controls">Lock Screen Controls</string>
+    <string name="show_on_lock_screen">Show on Lock Screen</string>
+    
+    <!-- Mini Player -->
+    <string name="swipe_up_to_expand">Swipe up to expand</string>
+    <string name="swipe_left_right">Swipe left/right for next/previous</string>
+    
+    <!-- Onboarding -->
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
+    <string name="onboarding_welcome_title">Welcome to Zuvy</string>
+    <string name="onboarding_welcome_desc">Your ultimate media player with powerful features and beautiful design. Experience videos and music like never before.</string>
+    <string name="onboarding_video_title">Powerful Video Player</string>
+    <string name="onboarding_video_desc">Gestures for brightness, volume, and seek. Pinch to zoom, double tap to seek, and enjoy advanced playback controls.</string>
+    <string name="onboarding_music_title">Premium Music Experience</string>
+    <string name="onboarding_music_desc">Equalizer with presets, audio visualizer, synced lyrics, and crossfade for gapless playback.</string>
+    <string name="onboarding_discover_title">Discover &amp; Explore</string>
+    <string name="onboarding_discover_desc">Find trending content, listen to online radio, and discover new music from around the world.</string>
+    <string name="onboarding_premium_title">Go Premium</string>
+    <string name="onboarding_premium_desc">Unlock all features, remove ads, and support development. Premium unlocks exclusive themes and cloud backup.</string>
+    
+    <!-- Tutorial -->
+    <string name="tutorial_play_pause">Play &amp; Pause</string>
+    <string name="tutorial_play_pause_desc">Tap here to play or pause the video</string>
+    <string name="tutorial_seek">Seek Through Video</string>
+    <string name="tutorial_seek_desc">Drag to seek to any position in the video</string>
+    <string name="tutorial_double_tap">Double Tap to Seek</string>
+    <string name="tutorial_double_tap_desc">Double tap left side to rewind 10 seconds, right side to forward 10 seconds</string>
+    <string name="tutorial_brightness">Adjust Brightness</string>
+    <string name="tutorial_brightness_desc">Swipe up/down on the left side to adjust screen brightness</string>
+    <string name="tutorial_volume">Adjust Volume</string>
+    <string name="tutorial_volume_desc">Swipe up/down on the right side to adjust volume</string>
+    <string name="tutorial_lock">Lock Screen</string>
+    <string name="tutorial_lock_desc">Lock the player to prevent accidental touches</string>
+    <string name="tutorial_settings">Player Settings</string>
+    <string name="tutorial_settings_desc">Access playback speed, subtitles, audio tracks, and more</string>
+    <string name="done">Done</string>
+    
+    <!-- Media Scan -->
+    <string name="scanning_media">Scanning for media…</string>
+    <string name="scan_progress">%1$d of %2$d files</string>
+    <string name="scan_complete">Scan complete</string>
+    <string name="scan_found">Found %1$d media files</string>
+    <string name="real_time_monitoring">Real-time monitoring active</string>
+    <string name="media_added">Media added</string>
+    <string name="media_removed">Media removed</string>
 </resources>

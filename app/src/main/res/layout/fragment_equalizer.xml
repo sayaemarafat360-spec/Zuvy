@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_glassmorphic_circle"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/text_primary"
+            android:padding="12dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/equalizer"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_glassmorphic"
+            android:padding="10dp"
+            android:text="@string/reset"
+            android:textColor="@color/accent"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <!-- Enable Toggle -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/bg_glassmorphic"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/enable_equalizer"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/equalizerToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:thumbTint="@color/accent" />
+
+    </LinearLayout>
+
+    <!-- Presets -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/presets"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/presetGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            app:chipBackgroundColor="@color/chip_selector"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/presetFlat"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/flat"
+                android:textColor="@color/chip_text_selector" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/presetBass"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bass_boost"
+                android:textColor="@color/chip_text_selector" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/presetTreble"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/treble_boost"
+                android:textColor="@color/chip_text_selector" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/presetVocal"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vocal"
+                android:textColor="@color/chip_text_selector" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/presetRock"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rock"
+                android:textColor="@color/chip_text_selector" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/presetPop"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pop"
+                android:textColor="@color/chip_text_selector" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/presetJazz"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jazz"
+                android:textColor="@color/chip_text_selector" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/presetElectronic"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/electronic"
+                android:textColor="@color/chip_text_selector" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <!-- Equalizer Bands -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_glassmorphic"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Frequency Labels -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="60Hz"
+                android:textColor="@color/text_secondary"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="250Hz"
+                android:textColor="@color/text_secondary"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1kHz"
+                android:textColor="@color/text_secondary"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="4kHz"
+                android:textColor="@color/text_secondary"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="16kHz"
+                android:textColor="@color/text_secondary"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <!-- Band SeekBars -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- Band 1 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/band1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:max="30"
+                    android:progress="15"
+                    android:progressDrawable="@drawable/seekbar_progress_premium"
+                    android:rotation="270"
+                    android:thumb="@drawable/seekbar_thumb_premium" />
+
+                <TextView
+                    android:id="@+id/band1Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="0dB"
+                    android:textColor="@color/accent"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <!-- Band 2 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/band2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:max="30"
+                    android:progress="15"
+                    android:progressDrawable="@drawable/seekbar_progress_premium"
+                    android:rotation="270"
+                    android:thumb="@drawable/seekbar_thumb_premium" />
+
+                <TextView
+                    android:id="@+id/band2Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="0dB"
+                    android:textColor="@color/accent"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <!-- Band 3 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/band3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:max="30"
+                    android:progress="15"
+                    android:progressDrawable="@drawable/seekbar_progress_premium"
+                    android:rotation="270"
+                    android:thumb="@drawable/seekbar_thumb_premium" />
+
+                <TextView
+                    android:id="@+id/band3Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="0dB"
+                    android:textColor="@color/accent"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <!-- Band 4 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/band4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:max="30"
+                    android:progress="15"
+                    android:progressDrawable="@drawable/seekbar_progress_premium"
+                    android:rotation="270"
+                    android:thumb="@drawable/seekbar_thumb_premium" />
+
+                <TextView
+                    android:id="@+id/band4Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="0dB"
+                    android:textColor="@color/accent"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <!-- Band 5 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/band5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:max="30"
+                    android:progress="15"
+                    android:progressDrawable="@drawable/seekbar_progress_premium"
+                    android:rotation="270"
+                    android:thumb="@drawable/seekbar_thumb_premium" />
+
+                <TextView
+                    android:id="@+id/band5Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="0dB"
+                    android:textColor="@color/accent"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Audio Effects -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/audio_effects"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_glassmorphic"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Bass Boost -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/bassBoostToggle"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_glassmorphic_circle"
+                android:src="@drawable/ic_volume_boost"
+                android:tint="@color/text_secondary"
+                android:padding="12dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bass_boost"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp" />
+
+                <SeekBar
+                    android:id="@+id/bassBoostSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/seekbar_progress_premium"
+                    android:thumb="@drawable/seekbar_thumb_premium" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Virtualizer -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/virtualizerToggle"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_glassmorphic_circle"
+                android:src="@drawable/ic_3d_rotation"
+                android:tint="@color/text_secondary"
+                android:padding="12dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/surround_sound"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp" />
+
+                <SeekBar
+                    android:id="@+id/virtualizerSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/seekbar_progress_premium"
+                    android:thumb="@drawable/seekbar_thumb_premium" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,12 +9,15 @@ import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.zuvy.app.notifications.NotificationEngine
+import com.zuvy.app.premium.AdManager
+import com.zuvy.app.scanner.AdvancedMediaScanner
 import com.zuvy.app.utils.PreferenceManager
 import com.zuvy.app.utils.ThemeHelper
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -26,16 +29,28 @@ class ZuvyApplication : Application() {
     @Inject
     lateinit var notificationEngine: NotificationEngine
 
+    @Inject
+    lateinit var adManager: AdManager
+
+    @Inject
+    lateinit var mediaScanner: AdvancedMediaScanner
+
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
     override fun onCreate() {
         super.onCreate()
 
+        // Initialize Timber for logging
+        initializeTimber()
+
         // Initialize Firebase
         initializeFirebase()
 
-        // Initialize AdMob
+        // Initialize AdMob using AdManager
         initializeAdMob()
+
+        // Initialize Media Scanner
+        initializeMediaScanner()
 
         // Create notification channels
         createNotificationChannels()
@@ -47,18 +62,27 @@ class ZuvyApplication : Application() {
         scheduleNotifications()
     }
 
+    private fun initializeTimber() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+        Timber.d("Zuvy Application initialized")
+    }
+
     private fun initializeFirebase() {
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(!BuildConfig.DEBUG)
     }
 
     private fun initializeAdMob() {
+        // Initialize AdManager which handles AdMob SDK initialization
+        adManager.initialize()
+    }
+
+    private fun initializeMediaScanner() {
+        // Initialize the advanced media scanner for real-time monitoring
         applicationScope.launch {
-            try {
-                MobileAds.initialize(this@ZuvyApplication) { }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            mediaScanner.initialize()
         }
     }
 

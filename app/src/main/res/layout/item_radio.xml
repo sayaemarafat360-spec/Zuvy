@@ -1,56 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="120dp"
-    android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardBackgroundColor="@color/card_dark"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="0dp">
+    android:layout_width="140dp"
+    android:layout_height="160dp"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Station Logo -->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/stationLogo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/ic_radio"
-            app:civ_border_color="@color/primary"
-            app:civ_border_width="2dp" />
+        <!-- Radio Art -->
+        <FrameLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp">
 
-        <!-- Station Name -->
+            <!-- Glow -->
+            <View
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_play_button_glow"
+                android:alpha="0.3" />
+
+            <ImageView
+                android:id="@+id/radioArt"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_radio" />
+
+        </FrameLayout>
+
+        <!-- Radio Name -->
         <TextView
-            android:id="@+id/stationName"
+            android:id="@+id/radioName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:fontFamily="@font/poppins"
             android:gravity="center"
-            android:maxLines="2"
+            android:maxLines="1"
             android:textColor="@color/text_primary"
-            android:textSize="12sp"
-            tools:text="Radio Station" />
+            android:textSize="13sp"
+            android:textStyle="bold"
+            tools:text="Pop Hits Radio" />
 
         <!-- Genre -->
         <TextView
-            android:id="@+id/genre"
+            android:id="@+id/genreText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/poppins"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/text_secondary"
-            android:textSize="10sp"
-            tools:text="Pop, Rock" />
+            android:textSize="11sp"
+            tools:text="Top 40 • Pop" />
+
+        <!-- Live Indicator -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:background="@drawable/bg_dot"
+                android:backgroundTint="#FF0000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="LIVE"
+                android:textColor="#FF0000"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>

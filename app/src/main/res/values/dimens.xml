@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing -->
+    <dimen name="spacing_xs">2dp</dimen>
+    <dimen name="spacing_sm">4dp</dimen>
+    <dimen name="spacing_md">8dp</dimen>
+    <dimen name="spacing_lg">12dp</dimen>
+    <dimen name="spacing_xl">16dp</dimen>
+    <dimen name="spacing_xxl">24dp</dimen>
+    <dimen name="spacing_xxxl">32dp</dimen>
+
+    <!-- Card & Item dimensions -->
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_elevation">0dp</dimen>
+    
+    <!-- Video item dimensions -->
+    <dimen name="video_thumbnail_width">120dp</dimen>
+    <dimen name="video_thumbnail_height">68dp</dimen>
+    <dimen name="video_thumbnail_corner">8dp</dimen>
+
+    <!-- Mini player dimensions -->
+    <dimen name="mini_player_height">64dp</dimen>
+    <dimen name="mini_player_corner">16dp</dimen>
+
+    <!-- Player controls -->
+    <dimen name="player_control_size">48dp</dimen>
+    <dimen name="player_control_padding">12dp</dimen>
+    <dimen name="player_gesture_area_width">80dp</dimen>
+
+    <!-- Tutorial dimensions -->
+    <dimen name="tutorial_highlight_padding">8dp</dimen>
+    <dimen name="tutorial_tooltip_corner">16dp</dimen>
+    <dimen name="tutorial_tooltip_width">300dp</dimen>
+
+    <!-- Onboarding dimensions -->
+    <dimen name="onboarding_illustration_size">200dp</dimen>
+
+    <!-- Bottom navigation -->
+    <dimen name="bottom_nav_height">56dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_size_xs">10sp</dimen>
+    <dimen name="text_size_sm">12sp</dimen>
+    <dimen name="text_size_md">14sp</dimen>
+    <dimen name="text_size_lg">16sp</dimen>
+    <dimen name="text_size_xl">18sp</dimen>
+    <dimen name="text_size_xxl">24sp</dimen>
+    <dimen name="text_size_title">28sp</dimen>
+</resources>

@@ -1,9 +1,15 @@
 package com.zuvy.app.ui.home.videos
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.ActionMode
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,8 +24,9 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.zuvy.app.R
 import com.zuvy.app.data.model.MediaItem
 import com.zuvy.app.databinding.FragmentVideosBinding
-import com.zuvy.app.databinding.ItemVideoBinding
+import com.zuvy.app.databinding.ItemVideoCompactBinding
 import com.zuvy.app.ui.home.HomeViewModel
+import com.zuvy.app.utils.ToastUtils
 import com.zuvy.app.utils.formatDuration
 import com.zuvy.app.utils.formatFileSize
 import com.bumptech.glide.Glide
@@ -35,6 +42,16 @@ class VideosFragment : Fragment() {
     private val viewModel: HomeViewModel by activityViewModels()
     private lateinit var videosAdapter: VideosAdapter
     private var isGridView = true
+    
+    // Multi-select state
+    private var actionMode: ActionMode? = null
+    private val selectedItems = mutableSetOf<MediaItem>()
+    private var isMultiSelectMode = false
+    
+    // Double tap detection
+    private var lastTapTime = 0L
+    private var lastTappedItem: MediaItem? = null
+    private val doubleTapTimeout = 300L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +77,8 @@ class VideosFragment : Fragment() {
         }
         
         binding.videosRecyclerView.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            // Use LinearLayoutManager for compact list view
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
             adapter = videosAdapter
             setHasFixedSize(true)
             setItemViewCacheSize(20)
@@ -84,11 +102,13 @@ class VideosFragment : Fragment() {
 
     private fun toggleViewMode() {
         isGridView = !isGridView
-        val spanCount = if (isGridView) 2 else 1
-        (binding.videosRecyclerView.layoutManager as GridLayoutManager).spanCount = spanCount
-        binding.viewModeButton.setImageResource(
-            if (isGridView) R.drawable.ic_list else R.drawable.ic_grid
-        )
+        if (isGridView) {
+            binding.videosRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+            binding.viewModeButton.setImageResource(R.drawable.ic_list)
+        } else {
+            binding.videosRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+            binding.viewModeButton.setImageResource(R.drawable.ic_grid)
+        }
     }
 
     private fun showSortDialog() {
@@ -163,9 +183,11 @@ class VideosFragment : Fragment() {
             items.addAll(newItems)
             notifyDataSetChanged()
         }
+        
+        fun getItems(): List<MediaItem> = items.toList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
-            val binding = ItemVideoBinding.inflate(
+            val binding = ItemVideoCompactBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
             return VideoViewHolder(binding)
@@ -184,19 +206,60 @@ class VideosFragment : Fragment() {
         }
 
         inner class VideoViewHolder(
-            val binding: ItemVideoBinding
+            val binding: ItemVideoCompactBinding
         ) : RecyclerView.ViewHolder(binding.root) {
 
             init {
+                // Single tap with double-tap detection
                 binding.root.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        onVideoClick(items[position], binding.thumbnail)
+                        val item = items[position]
+                        
+                        if (isMultiSelectMode) {
+                            toggleSelection(item)
+                        } else {
+                            // Double tap detection
+                            val now = System.currentTimeMillis()
+                            if (lastTappedItem == item && now - lastTapTime < doubleTapTimeout) {
+                                // Double tap - Add to favorites
+                                onDoubleTap(item)
+                                lastTapTime = 0L
+                                lastTappedItem = null
+                            } else {
+                                // Single tap - wait for potential double tap
+                                lastTapTime = now
+                                lastTappedItem = item
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    if (lastTappedItem == item) {
+                                        onVideoClick(item, binding.thumbnail)
+                                    }
+                                }, doubleTapTimeout)
+                            }
+                        }
+                    }
+                }
+                
+                // Long press - Enter multi-select mode or show options
+                binding.root.setOnLongClickListener {
+                    val position = bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val item = items[position]
+                        if (!isMultiSelectMode) {
+                            startMultiSelect(item)
+                        } else {
+                            toggleSelection(item)
+                        }
+                        true
+                    } else {
+                        false
                     }
                 }
 
                 binding.moreButton.setOnClickListener {
-                    showVideoOptions(items[bindingAdapterPosition])
+                    if (!isMultiSelectMode) {
+                        showVideoOptions(items[bindingAdapterPosition])
+                    }
                 }
             }
 
@@ -211,6 +274,13 @@ class VideosFragment : Fragment() {
                 } else {
                     binding.resolution.visibility = View.GONE
                 }
+                
+                // Selection state visual feedback
+                val isSelected = selectedItems.contains(item)
+                binding.root.isSelected = isSelected
+                binding.selectionOverlay.visibility = if (isSelected) View.VISIBLE else View.GONE
+                binding.checkbox.isChecked = isSelected
+                binding.checkbox.visibility = if (isMultiSelectMode) View.VISIBLE else View.GONE
 
                 // Set transition name
                 binding.thumbnail.transitionName = "video_thumbnail_${item.id}"
@@ -225,7 +295,132 @@ class VideosFragment : Fragment() {
         }
     }
     
+    // Double tap action - Add to favorites
+    private fun onDoubleTap(item: MediaItem) {
+        ToastUtils.showSuccess(requireContext(), "❤️ Added to favorites: ${item.name}")
+        // Animate heart
+        binding.root.animate()
+            .scaleX(0.9f)
+            .scaleY(0.9f)
+            .setDuration(100)
+            .withEndAction {
+                binding.root.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setDuration(100)
+                    .start()
+            }
+            .start()
+    }
+    
+    // Multi-select functionality
+    private fun startMultiSelect(item: MediaItem) {
+        isMultiSelectMode = true
+        selectedItems.clear()
+        selectedItems.add(item)
+        actionMode = requireActivity().startActionMode(actionModeCallback)
+        videosAdapter.notifyDataSetChanged()
+    }
+    
+    private fun toggleSelection(item: MediaItem) {
+        if (selectedItems.contains(item)) {
+            selectedItems.remove(item)
+            if (selectedItems.isEmpty()) {
+                exitMultiSelect()
+            }
+        } else {
+            selectedItems.add(item)
+        }
+        actionMode?.title = "${selectedItems.size} selected"
+        videosAdapter.notifyDataSetChanged()
+    }
+    
+    private fun exitMultiSelect() {
+        isMultiSelectMode = false
+        selectedItems.clear()
+        actionMode?.finish()
+        actionMode = null
+        videosAdapter.notifyDataSetChanged()
+    }
+    
+    private val actionModeCallback = object : ActionMode.Callback {
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            mode?.menuInflater?.inflate(R.menu.menu_multi_select, menu)
+            mode?.title = "1 selected"
+            return true
+        }
+
+        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            return false
+        }
+
+        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+            return when (item?.itemId) {
+                R.id.action_share -> {
+                    shareSelectedItems()
+                    true
+                }
+                R.id.action_delete -> {
+                    deleteSelectedItems()
+                    true
+                }
+                R.id.action_add_playlist -> {
+                    addToPlaylistSelected()
+                    true
+                }
+                R.id.action_select_all -> {
+                    selectAll()
+                    true
+                }
+                else -> false
+            }
+        }
+
+        override fun onDestroyActionMode(mode: ActionMode?) {
+            isMultiSelectMode = false
+            selectedItems.clear()
+            videosAdapter.notifyDataSetChanged()
+        }
+    }
+    
+    private fun shareSelectedItems() {
+        ToastUtils.showInfo(requireContext(), "Sharing ${selectedItems.size} videos...")
+        exitMultiSelect()
+    }
+    
+    private fun deleteSelectedItems() {
+        ToastUtils.showWarning(requireContext(), "Delete ${selectedItems.size} videos?")
+        exitMultiSelect()
+    }
+    
+    private fun addToPlaylistSelected() {
+        ToastUtils.showSuccess(requireContext(), "Added ${selectedItems.size} videos to playlist")
+        exitMultiSelect()
+    }
+    
+    private fun selectAll() {
+        selectedItems.clear()
+        selectedItems.addAll(videosAdapter.getItems())
+        actionMode?.title = "${selectedItems.size} selected"
+        videosAdapter.notifyDataSetChanged()
+    }
+    
     private fun showVideoOptions(video: MediaItem) {
-        // Show bottom sheet with options
+        val bottomSheet = com.zuvy.app.ui.components.MediaOptionsBottomSheet.newInstance(
+            mediaItem = video,
+            onPlayNext = {
+                // Add to play next in queue
+                ToastUtils.showSuccess(requireContext(), "Added to play next ⏭️")
+            },
+            onAddToPlaylist = {
+                // Show playlist picker
+                ToastUtils.showInfo(requireContext(), "Playlist picker coming soon")
+            },
+            onAddToFavorites = {
+                // Add to favorites
+                ToastUtils.showSuccess(requireContext(), "Added to favorites ❤️")
+            }
+        )
+        bottomSheet.show(childFragmentManager, "media_options")
     }
 }

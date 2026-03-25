@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.zuvy.app.R
 import com.zuvy.app.databinding.ActivitySplashBinding
+import com.zuvy.app.onboarding.OnboardingActivity
 import com.zuvy.app.utils.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -62,15 +63,22 @@ class SplashActivity : AppCompatActivity() {
             })
             .start()
 
-        // Navigate to main after animation
+        // Navigate after animation
         lifecycleScope.launch {
             delay(1500)
-            navigateToMain()
+            navigateToNextScreen()
         }
     }
 
-    private fun navigateToMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun navigateToNextScreen() {
+        // Check if onboarding has been completed
+        if (!OnboardingActivity.hasCompletedOnboarding(this)) {
+            // Show onboarding for first-time users
+            startActivity(Intent(this, OnboardingActivity::class.java))
+        } else {
+            // Go directly to main activity
+            startActivity(Intent(this, MainActivity::class.java))
+        }
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
     }

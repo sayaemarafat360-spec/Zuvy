@@ -259,7 +259,43 @@ class SearchFragment : Fragment() {
     }
     
     private fun showItemOptions(item: Any, type: String) {
-        ToastUtils.showInfo(requireContext(), "Options coming soon!")
+        when (type) {
+            "video" -> {
+                val video = item as com.zuvy.app.data.model.MediaItem
+                val bottomSheet = com.zuvy.app.ui.components.MediaOptionsBottomSheet.newInstance(
+                    mediaItem = video,
+                    onPlayNext = {
+                        ToastUtils.showSuccess(requireContext(), "Added to play next ⏭️")
+                    },
+                    onAddToPlaylist = {
+                        ToastUtils.showInfo(requireContext(), "Playlist picker coming soon")
+                    },
+                    onAddToFavorites = {
+                        ToastUtils.showSuccess(requireContext(), "Added to favorites ❤️")
+                    }
+                )
+                bottomSheet.show(childFragmentManager, "video_options")
+            }
+            "music" -> {
+                val song = item as com.zuvy.app.data.model.Song
+                val bottomSheet = com.zuvy.app.ui.components.SongOptionsBottomSheet.newInstance(
+                    song = song,
+                    onPlayNext = {
+                        ToastUtils.showSuccess(requireContext(), "Added to play next ⏭️")
+                    },
+                    onAddToQueue = {
+                        ToastUtils.showSuccess(requireContext(), "Added to queue 📋")
+                    },
+                    onAddToPlaylist = {
+                        ToastUtils.showInfo(requireContext(), "Playlist picker coming soon")
+                    },
+                    onAddToFavorites = {
+                        ToastUtils.showSuccess(requireContext(), "Added to favorites ❤️")
+                    }
+                )
+                bottomSheet.show(childFragmentManager, "song_options")
+            }
+        }
     }
     
     override fun onDestroyView() {

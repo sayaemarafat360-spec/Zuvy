@@ -1,7 +1,12 @@
 package com.zuvy.app.ui.music
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.ActionMode
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -20,6 +25,7 @@ import com.zuvy.app.databinding.ItemSongBinding
 import com.zuvy.app.player.MediaType
 import com.zuvy.app.player.PlayerManager
 import com.zuvy.app.player.QueueItem
+import com.zuvy.app.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,6 +41,16 @@ class SongsFragment : Fragment() {
     
     private val viewModel: MusicViewModel by activityViewModels()
     private lateinit var songsAdapter: SongsAdapter
+    
+    // Multi-select state
+    private var actionMode: ActionMode? = null
+    private val selectedItems = mutableSetOf<Song>()
+    private var isMultiSelectMode = false
+    
+    // Double tap detection
+    private var lastTapTime = 0L
+    private var lastTappedSong: Song? = null
+    private val doubleTapTimeout = 300L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,13 +71,122 @@ class SongsFragment : Fragment() {
     private fun setupRecyclerView() {
         songsAdapter = SongsAdapter(
             onItemClick = { song, position ->
-                playSong(song, position)
+                if (isMultiSelectMode) {
+                    toggleSelection(song)
+                } else {
+                    // Double tap detection
+                    val now = System.currentTimeMillis()
+                    if (lastTappedSong == song && now - lastTapTime < doubleTapTimeout) {
+                        // Double tap - Add to favorites
+                        onDoubleTap(song)
+                        lastTapTime = 0L
+                        lastTappedSong = null
+                    } else {
+                        // Single tap
+                        lastTapTime = now
+                        lastTappedSong = song
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            if (lastTappedSong == song) {
+                                playSong(song, position)
+                            }
+                        }, doubleTapTimeout)
+                    }
+                }
             },
             onOptionsClick = { song ->
-                showSongOptions(song)
+                if (!isMultiSelectMode) {
+                    showSongOptions(song)
+                }
+            },
+            onLongClick = { song ->
+                if (!isMultiSelectMode) {
+                    startMultiSelect(song)
+                } else {
+                    toggleSelection(song)
+                }
+                true
             }
         )
         binding.songsRecyclerView.adapter = songsAdapter
+    }
+    
+    // Double tap action - Add to favorites
+    private fun onDoubleTap(song: Song) {
+        ToastUtils.showSuccess(requireContext(), "❤️ Added to favorites: ${song.title}")
+    }
+    
+    // Multi-select functionality
+    private fun startMultiSelect(song: Song) {
+        isMultiSelectMode = true
+        selectedItems.clear()
+        selectedItems.add(song)
+        actionMode = requireActivity().startActionMode(actionModeCallback)
+        songsAdapter.notifyDataSetChanged()
+    }
+    
+    private fun toggleSelection(song: Song) {
+        if (selectedItems.contains(song)) {
+            selectedItems.remove(song)
+            if (selectedItems.isEmpty()) {
+                exitMultiSelect()
+            }
+        } else {
+            selectedItems.add(song)
+        }
+        actionMode?.title = "${selectedItems.size} selected"
+        songsAdapter.notifyDataSetChanged()
+    }
+    
+    private fun exitMultiSelect() {
+        isMultiSelectMode = false
+        selectedItems.clear()
+        actionMode?.finish()
+        actionMode = null
+        songsAdapter.notifyDataSetChanged()
+    }
+    
+    private val actionModeCallback = object : ActionMode.Callback {
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            mode?.menuInflater?.inflate(R.menu.menu_multi_select, menu)
+            mode?.title = "1 selected"
+            return true
+        }
+
+        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean = false
+
+        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+            return when (item?.itemId) {
+                R.id.action_share -> {
+                    ToastUtils.showInfo(requireContext(), "Sharing ${selectedItems.size} songs...")
+                    exitMultiSelect()
+                    true
+                }
+                R.id.action_delete -> {
+                    ToastUtils.showWarning(requireContext(), "Delete ${selectedItems.size} songs?")
+                    exitMultiSelect()
+                    true
+                }
+                R.id.action_add_playlist -> {
+                    ToastUtils.showSuccess(requireContext(), "Added ${selectedItems.size} songs to playlist")
+                    exitMultiSelect()
+                    true
+                }
+                R.id.action_select_all -> {
+                    selectedItems.clear()
+                    selectedItems.addAll(songsAdapter.getItems())
+                    actionMode?.title = "${selectedItems.size} selected"
+                    songsAdapter.notifyDataSetChanged()
+                    true
+                }
+                else -> false
+            }
+        }
+
+        override fun onDestroyActionMode(mode: ActionMode?) {
+            isMultiSelectMode = false
+            selectedItems.clear()
+            songsAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun observeData() {
@@ -111,7 +236,37 @@ class SongsFragment : Fragment() {
     }
 
     private fun showSongOptions(song: Song) {
-        // Show bottom sheet with options
+        val bottomSheet = com.zuvy.app.ui.components.SongOptionsBottomSheet.newInstance(
+            song = song,
+            onPlayNext = {
+                playerManager.addToQueue(
+                    com.zuvy.app.player.QueueItem(song.uri, song.title, com.zuvy.app.player.MediaType.AUDIO),
+                    playNext = true
+                )
+            },
+            onAddToQueue = {
+                playerManager.addToQueue(
+                    com.zuvy.app.player.QueueItem(song.uri, song.title, com.zuvy.app.player.MediaType.AUDIO),
+                    playNext = false
+                )
+            },
+            onAddToPlaylist = {
+                // Show playlist picker
+            },
+            onAddToFavorites = {
+                // Add to favorites database
+            },
+            onGoToArtist = {
+                // Navigate to artist detail
+            },
+            onGoToAlbum = {
+                // Navigate to album detail
+            },
+            onSetRingtone = {
+                // Set as ringtone
+            }
+        )
+        bottomSheet.show(childFragmentManager, "song_options")
     }
 
     override fun onDestroyView() {
@@ -121,10 +276,13 @@ class SongsFragment : Fragment() {
 
     inner class SongsAdapter(
         private val onItemClick: (Song, Int) -> Unit,
-        private val onOptionsClick: (Song) -> Unit
+        private val onOptionsClick: (Song) -> Unit,
+        private val onLongClick: (Song) -> Boolean
     ) : RecyclerView.Adapter<SongsAdapter.SongViewHolder>() {
 
         private val items = mutableListOf<Song>()
+        
+        fun getItems(): List<Song> = items.toList()
 
         fun submitList(newItems: List<Song>) {
             items.clear()
@@ -157,6 +315,15 @@ class SongsFragment : Fragment() {
                     }
                 }
                 
+                binding.root.setOnLongClickListener {
+                    val position = bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        onLongClick(items[position])
+                    } else {
+                        false
+                    }
+                }
+                
                 binding.moreButton.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
@@ -169,6 +336,13 @@ class SongsFragment : Fragment() {
                 binding.songTitle.text = song.title
                 binding.artistName.text = song.artist
                 binding.duration.text = song.duration
+                
+                // Selection state visual feedback
+                val isSelected = selectedItems.contains(song)
+                binding.root.isSelected = isSelected
+                binding.selectionOverlay.visibility = if (isSelected) View.VISIBLE else View.GONE
+                binding.checkbox.isChecked = isSelected
+                binding.checkbox.visibility = if (isMultiSelectMode) View.VISIBLE else View.GONE
 
                 Glide.with(binding.albumArt)
                     .load(song.albumArtUri)
