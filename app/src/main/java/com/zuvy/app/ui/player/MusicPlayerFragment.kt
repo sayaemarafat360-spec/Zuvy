@@ -123,10 +123,6 @@ class MusicPlayerFragment : Fragment() {
             override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
                 super.clearView(recyclerView, viewHolder)
                 viewHolder.itemView.alpha = 1f
-                // Notify adapter to update positions
-                val queue = queueAdapter.currentList.mapIndexed { index, item ->
-                    item to index
-                }
             }
         }).attachToRecyclerView(binding.queueRecyclerView)
     }
@@ -470,7 +466,7 @@ class MusicPlayerFragment : Fragment() {
         
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Playback Speed")
-            .setSingleChoiceItems(speedLabels, speeds.indexOf(1.0f)) { dialog, which ->
+            .setSingleChoiceItems(speedLabels, speeds.indexOfFirst { it == 1.0f }) { dialog, which ->
                 playerManager.setPlaybackSpeed(speeds[which])
                 binding.speedButton.text = "${speeds[which]}x"
                 dialog.dismiss()

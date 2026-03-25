@@ -147,18 +147,18 @@ class VideoPlayerFragment : Fragment() {
             override fun onPlaybackStateChanged(state: Int) {
                 when (state) {
                     Player.STATE_READY -> {
-                        binding.loadingProgress.hide()
+                        binding.loadingProgress.visibility = View.GONE
                         updateProgress()
                         showControls()
                     }
                     Player.STATE_BUFFERING -> {
-                        binding.loadingProgress.show()
+                        binding.loadingProgress.visibility = View.VISIBLE
                     }
                     Player.STATE_ENDED -> {
                         onPlaybackEnded()
                     }
                     Player.STATE_IDLE -> {
-                        binding.loadingProgress.hide()
+                        binding.loadingProgress.visibility = View.GONE
                     }
                 }
             }
@@ -646,7 +646,7 @@ class VideoPlayerFragment : Fragment() {
         
         var selectedMinutes = 0
         
-        dialogBinding.sleepOptions.setOnCheckedChangeListener { _, checkedId ->
+        dialogBinding.root.setOnCheckedChangeListener { _, checkedId ->
             selectedMinutes = when (checkedId) {
                 R.id.optionOff -> 0
                 R.id.option5min -> 5

@@ -84,16 +84,18 @@ class SongsFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        binding.shuffleAll.setOnClickListener {
+        binding.shuffleChip.setOnClickListener {
             val songs = viewModel.songs.value.shuffled()
             if (songs.isNotEmpty()) {
                 playSong(songs.first(), 0)
             }
         }
         
-        binding.swipeRefresh.setOnRefreshListener {
-            viewModel.loadMusic()
-            binding.swipeRefresh.isRefreshing = false
+        binding.playAllChip.setOnClickListener {
+            val songs = viewModel.songs.value
+            if (songs.isNotEmpty()) {
+                playSong(songs.first(), 0)
+            }
         }
     }
 

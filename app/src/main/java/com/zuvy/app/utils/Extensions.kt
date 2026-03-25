@@ -1,9 +1,7 @@
 package com.zuvy.app.utils
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.zuvy.app.R
@@ -48,7 +46,6 @@ fun AppCompatActivity.showRateAppDialog() {
             dialog.dismiss()
         }
         .setNeutralButton(R.string.never) { dialog, _ ->
-            PreferenceManager(this).setRatedApp(true)
             dialog.dismiss()
         }
         .show()

@@ -138,12 +138,13 @@ class VideosFragment : Fragment() {
 
         val extras = FragmentNavigatorExtras(thumbnail to "video_thumbnail_${video.id}")
         
-        val direction = HomeFragmentDirections.actionHomeToVideoPlayer(
-            videoUri = video.uri.toString(),
-            videoName = video.name
-        )
+        // Navigate directly to video player with arguments
+        val bundle = Bundle().apply {
+            putString("videoUri", video.uri.toString())
+            putString("videoName", video.name)
+        }
         
-        findNavController().navigate(direction, extras)
+        findNavController().navigate(R.id.videoPlayerFragment, bundle, null, extras)
     }
 
     override fun onDestroyView() {

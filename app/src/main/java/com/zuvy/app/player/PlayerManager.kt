@@ -207,7 +207,7 @@ class PlayerManager @Inject constructor(
         }
     }
 
-    private fun playFromQueue(index: Int) {
+    fun playFromQueue(index: Int) {
         val items = _queue.value
         if (index in items.indices) {
             _queueIndex.value = index
@@ -277,7 +277,9 @@ class PlayerManager @Inject constructor(
 
     fun setPlaybackSpeed(speed: Float) {
         player?.setPlaybackSpeed(speed)
-        preferenceManager.setPlaybackSpeed(speed)
+        scope.launch {
+            preferenceManager.setPlaybackSpeed(speed)
+        }
     }
 
     fun toggleRepeatMode() {
