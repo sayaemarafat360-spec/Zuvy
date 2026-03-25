@@ -11,7 +11,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_search"
-        android:tint="@color/accent_dark" />
+        android:tint="@color/accent_blue" />
 
     <TextView
         android:id="@+id/suggestionText"

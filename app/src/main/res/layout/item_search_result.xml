@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:maxLines="2"
                 android:textColor="@color/text_primary"
                 android:textSize="15sp"
@@ -61,7 +61,7 @@
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:src="@drawable/ic_video"
-                    app:tint="@color/accent_dark" />
+                    app:tint="@color/accent_blue" />
 
                 <TextView
                     android:id="@+id/subtitleText"
@@ -86,7 +86,7 @@
                 android:fontFamily="@font/poppins"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
-                android:textColor="@color/accent_dark"
+                android:textColor="@color/accent_blue"
                 android:textSize="10sp"
                 tools:text="VIDEO" />
 

@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/poppins"
             android:gravity="center"
             android:text="Video Options"
             android:textColor="@color/text_primary"
@@ -67,7 +67,7 @@
                 android:background="@drawable/bg_circle"
                 android:padding="12dp"
                 android:src="@drawable/ic_video"
-                app:tint="@color/accent_dark" />
+                app:tint="@color/accent_blue" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins"
                     android:maxLines="2"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"

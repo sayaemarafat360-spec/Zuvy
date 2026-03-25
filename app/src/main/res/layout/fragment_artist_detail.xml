@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
+                        android:fontFamily="@font/poppins"
                         android:text="Artist"
                         android:textColor="@color/text_primary"
                         android:textSize="20sp" />
@@ -77,7 +77,7 @@
                             android:background="@drawable/bg_circle"
                             android:padding="24dp"
                             android:src="@drawable/ic_artist"
-                            app:tint="@color/accent_dark" />
+                            app:tint="@color/accent_blue" />
 
                         <!-- Artist Name -->
                         <TextView
@@ -85,7 +85,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:fontFamily="@font/poppins_medium"
+                            android:fontFamily="@font/poppins"
                             android:textColor="@color/text_primary"
                             android:textSize="22sp"
                             android:textStyle="bold"

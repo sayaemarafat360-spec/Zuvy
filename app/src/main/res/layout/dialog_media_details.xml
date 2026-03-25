@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/poppins"
         android:text="File Name"
         android:textColor="@color/text_secondary"
         android:textSize="12sp" />
@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/poppins"
         android:text="File Path"
         android:textColor="@color/text_secondary"
         android:textSize="12sp" />
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:text="File Size"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -91,7 +91,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:text="Duration"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -129,7 +129,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:text="Resolution"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -154,7 +154,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:text="MIME Type"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -192,7 +192,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:text="Date Added"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -217,7 +217,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:text="Modified"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
