@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_dark"
+    android:background="@drawable/bg_premium_gradient"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -23,6 +23,7 @@
             app:titleEnabled="false">
 
             <LinearLayout
+                android:id="@+id/headerContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -48,7 +49,8 @@
                             android:fontFamily="@font/poppins"
                             android:text="@string/app_name"
                             android:textColor="@color/text_primary"
-                            android:textSize="28sp" />
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/videoCountText"
@@ -61,16 +63,36 @@
 
                     </LinearLayout>
 
-                    <!-- Search Button -->
-                    <ImageButton
-                        android:id="@+id/searchButton"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/bg_circle_ripple"
-                        android:contentDescription="@string/search"
-                        android:src="@drawable/ic_search"
-                        android:tint="@color/text_primary" />
+                    <!-- Action Buttons -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <!-- Scan Button -->
+                        <ImageButton
+                            android:id="@+id/scanButton"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_circle_ripple"
+                            android:contentDescription="Scan Media"
+                            android:src="@drawable/ic_refresh"
+                            android:tint="@color/text_primary"
+                            android:rotation="0" />
+
+                        <!-- Search Button -->
+                        <ImageButton
+                            android:id="@+id/searchButton"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_circle_ripple"
+                            android:contentDescription="@string/search"
+                            android:src="@drawable/ic_search"
+                            android:tint="@color/text_primary" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

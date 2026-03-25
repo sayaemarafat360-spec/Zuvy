@@ -228,4 +228,13 @@
         <item name="android:textColor">@color/chip_text_selector</item>
         <item name="checkedIconVisible">false</item>
     </style>
+    
+    <style name="Widget.Zuvy.FilterChip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_selector</item>
+        <item name="chipCornerRadius">16dp</item>
+        <item name="android:textColor">@color/chip_text_selector</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="chipMinHeight">32dp</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>

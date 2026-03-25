@@ -8,6 +8,7 @@ import android.os.Build
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.zuvy.app.notifications.NotificationEngine
 import com.zuvy.app.utils.PreferenceManager
 import com.zuvy.app.utils.ThemeHelper
 import dagger.hilt.android.HiltAndroidApp
@@ -21,6 +22,9 @@ class ZuvyApplication : Application() {
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
+    
+    @Inject
+    lateinit var notificationEngine: NotificationEngine
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
@@ -38,22 +42,20 @@ class ZuvyApplication : Application() {
 
         // Apply theme
         applyTheme()
+        
+        // Schedule daily engagement notifications
+        scheduleNotifications()
     }
 
     private fun initializeFirebase() {
-        // Enable Crashlytics in release builds
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
-
-        // Enable Analytics
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(!BuildConfig.DEBUG)
     }
 
     private fun initializeAdMob() {
         applicationScope.launch {
             try {
-                MobileAds.initialize(this@ZuvyApplication) {
-                    // AdMob initialized
-                }
+                MobileAds.initialize(this@ZuvyApplication) { }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -64,7 +66,6 @@ class ZuvyApplication : Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager = getSystemService(NotificationManager::class.java)
 
-            // Music Playback Channel
             val musicChannel = NotificationChannel(
                 CHANNEL_MUSIC_PLAYBACK,
                 getString(R.string.music_playback),
@@ -75,7 +76,6 @@ class ZuvyApplication : Application() {
                 lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             }
 
-            // Download Channel
             val downloadChannel = NotificationChannel(
                 CHANNEL_DOWNLOAD,
                 getString(R.string.downloads),
@@ -92,6 +92,16 @@ class ZuvyApplication : Application() {
     private fun applyTheme() {
         val themeMode = preferenceManager.getThemeMode()
         ThemeHelper.applyTheme(themeMode)
+    }
+    
+    private fun scheduleNotifications() {
+        applicationScope.launch {
+            try {
+                notificationEngine.scheduleDailyNotifications()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     companion object {

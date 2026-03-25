@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.zuvy.app.databinding.FragmentHomeBinding
 import com.zuvy.app.ui.home.videos.VideosFragment
 import com.zuvy.app.ui.home.folders.FoldersFragment
 import com.zuvy.app.ui.home.playlists.PlaylistsFragment
+import com.zuvy.app.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,6 +41,9 @@ class HomeFragment : Fragment() {
         setupTabLayout()
         setupClickListeners()
         observeData()
+        
+        // Animate entrance
+        binding.headerContainer.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.slide_up))
     }
 
     private fun setupViewPager() {
@@ -57,7 +62,6 @@ class HomeFragment : Fragment() {
             }
         }.attach()
 
-        // Show/hide FAB based on current tab
         binding.tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
                 binding.createPlaylistFab.visibility = if (tab?.position == 2) View.VISIBLE else View.GONE
@@ -69,11 +73,17 @@ class HomeFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.searchButton.setOnClickListener {
-            // TODO: Open search
+            findNavController().navigate(R.id.searchFragment)
+            ToastUtils.showInfo(requireContext(), "Search your media")
         }
 
         binding.createPlaylistFab.setOnClickListener {
-            // TODO: Create playlist dialog
+            ToastUtils.showInfo(requireContext(), "Create playlist coming soon!")
+        }
+        
+        binding.scanButton.setOnClickListener {
+            com.zuvy.app.services.MediaScannerWorker.scanNow(requireContext())
+            ToastUtils.showSuccess(requireContext(), "Scanning for new media...")
         }
     }
 

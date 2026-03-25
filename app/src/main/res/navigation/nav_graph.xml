@@ -136,4 +136,21 @@
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 
+    <!-- Search -->
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.zuvy.app.ui.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_search_to_videoPlayer"
+            app:destination="@id/videoPlayerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_search_to_musicPlayer"
+            app:destination="@id/musicPlayerFragment"
+            app:enterAnim="@anim/slide_up" />
+    </fragment>
+
 </navigation>

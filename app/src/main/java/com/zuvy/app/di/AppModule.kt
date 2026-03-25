@@ -8,6 +8,8 @@ import com.zuvy.app.data.local.dao.HistoryDao
 import com.zuvy.app.data.local.dao.PlaylistDao
 import com.zuvy.app.data.local.dao.QueueDao
 import com.zuvy.app.data.repository.MediaRepository
+import com.zuvy.app.notifications.NotificationEngine
+import com.zuvy.app.search.SearchEngine
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,5 +61,22 @@ object AppModule {
         @ApplicationContext context: Context
     ): MediaRepository {
         return MediaRepository(context)
+    }
+    
+    @Provides
+    @Singleton
+    fun provideNotificationEngine(
+        @ApplicationContext context: Context
+    ): NotificationEngine {
+        return NotificationEngine(context)
+    }
+    
+    @Provides
+    @Singleton
+    fun provideSearchEngine(
+        @ApplicationContext context: Context,
+        mediaRepository: MediaRepository
+    ): SearchEngine {
+        return SearchEngine(context, mediaRepository)
     }
 }

@@ -66,6 +66,14 @@
     <!-- Card Colors -->
     <color name="card_dark">#1E1E38</color>
     <color name="card_light">#FFFFFF</color>
+    <color name="surface_card">#1E1E38</color>
+    <color name="surface_elevated">#252542</color>
+    
+    <!-- Premium Gradients -->
+    <color name="gradient_premium_start">#667eea</color>
+    <color name="gradient_premium_end">#764ba2</color>
+    <color name="gradient_card_start">#1E1E38</color>
+    <color name="gradient_card_end">#252542</color>
     
     <!-- Icon Colors -->
     <color name="icon_active">#6C63FF</color>
