@@ -75,7 +75,7 @@ class FoldersFragment : Fragment() {
                         } else {
                             binding.emptyState.visibility = View.GONE
                             binding.foldersRecyclerView.visibility = View.VISIBLE
-                            // foldersAdapter.submitList(folders)
+                            foldersAdapter.submitList(folders)
                         }
                     }
                 }

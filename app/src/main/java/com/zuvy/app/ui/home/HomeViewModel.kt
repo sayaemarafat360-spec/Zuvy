@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.zuvy.app.data.model.MediaItem
+import com.zuvy.app.data.model.Folder
 import com.zuvy.app.data.repository.MediaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,8 +29,8 @@ class HomeViewModel @Inject constructor(
     private val _videos = MutableStateFlow<List<MediaItem>>(emptyList())
     val videos: StateFlow<List<MediaItem>> = _videos.asStateFlow()
 
-    private val _folders = MutableStateFlow<List<String>>(emptyList())
-    val folders: StateFlow<List<String>> = _folders.asStateFlow()
+    private val _folders = MutableStateFlow<List<Folder>>(emptyList())
+    val folders: StateFlow<List<Folder>> = _folders.asStateFlow()
 
     init {
         loadMedia()
@@ -40,8 +41,8 @@ class HomeViewModel @Inject constructor(
             _isLoading.value = true
             try {
                 mediaRepository.loadAllMedia()
-                _videos.value = mediaRepository.getVideos()
-                _folders.value = mediaRepository.getFolders()
+                _videos.value = mediaRepository.videos
+                _folders.value = mediaRepository.folders
                 _videoCount.value = _videos.value.size
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -54,7 +55,7 @@ class HomeViewModel @Inject constructor(
     fun searchVideos(query: String) {
         viewModelScope.launch {
             if (query.isEmpty()) {
-                _videos.value = mediaRepository.getVideos()
+                _videos.value = mediaRepository.videos
             } else {
                 _videos.value = mediaRepository.searchVideos(query)
             }
