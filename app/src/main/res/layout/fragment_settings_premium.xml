@@ -804,7 +804,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:text="PRIVACY & SECURITY"
+                android:text="PRIVACY &amp; SECURITY"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -892,7 +892,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
-                        android:text="Backup & Restore"
+                        android:text="Backup &amp; Restore"
                         android:textColor="@color/text_primary"
                         android:textSize="15sp" />
 
