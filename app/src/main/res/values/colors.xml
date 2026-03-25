@@ -88,4 +88,15 @@
     <!-- Shimmer -->
     <color name="shimmer_base">#1E1E38</color>
     <color name="shimmer_highlight">#2A2A48</color>
+    
+    <!-- Aliases for layouts (dark theme defaults) -->
+    <color name="background">@color/background_dark</color>
+    <color name="surface">@color/surface_dark</color>
+    <color name="surface_variant">@color/surface_variant_dark</color>
+    <color name="on_background">@color/on_background_dark</color>
+    <color name="on_surface">@color/on_surface_dark</color>
+    <color name="accent">@color/primary</color>
+    <color name="divider">@color/divider_dark</color>
+    <color name="ripple">@color/ripple_dark</color>
+    <color name="card">@color/card_dark</color>
 </resources>
